@@ -1,0 +1,33 @@
+id: MNBSD-2023-5
+summary: Wraparound in APR base64 encoding functions
+details: Integer Overflow or Wraparound vulnerability in apr_base64 functions of Apache Portable Runtime Utility (APR-util) allows an attacker to write beyond bounds of a buffer. This issue affects Apache Portable Runtime Utility (APR-util) 1.6.1 and prior versions.
+affected:
+  - package:
+      name: apr
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 2.0
+          - fixed: 2.2.8
+    versions:
+      - 2.0.0
+      - 2.1.0
+      - 2.2.0
+      - 2.2.1
+      - 2.2.2
+      - 2.2.3
+      - 2.2.4
+      - 2.2.5
+      - 2.2.6
+      - 2.2.7
+      - 2.2.8
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2022-25147
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/da9ba1d57e45ea06c1f55b34361d58e0dcc9e931
+aliases:
+  - CVE-2022-25147
+modified: "2023-04-09T00:00:00.000Z"
+published: "2023-04-09T00:00:00.000Z"

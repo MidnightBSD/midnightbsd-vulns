@@ -1,0 +1,42 @@
+name: Schema Validation
+
+on:
+  pull_request:
+    paths:
+      - '**.yaml'
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '**.yaml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+        npm install -g ajv-cli js-yaml ajv-keywords ajv-formats
+
+    - name: Download schema
+      run: |
+        curl https://raw.githubusercontent.com/ossf/osv-schema/main/validation/schema.json --output schema.json
+
+    - name: Validate YAML files
+      run: |
+        for file in $(find . -name "*.yaml"); do
+          if [[ $file != *'false_positives.yaml' ]]; then
+            echo "validating $file"
+            npx js-yaml $file > temp.json
+            ajv validate -s schema.json --spec draft2020 -d temp.json -c ajv-formats -c ajv-keywords --strict=false
+          fi
+        done

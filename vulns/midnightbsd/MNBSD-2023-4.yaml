@@ -1,0 +1,44 @@
+id: MNBSD-2023-4
+summary: Make sure target username is initialized in doas
+details: This is a minor fix to the previous check that handled multiple usernames with a single UID. It was possible for the target username in this case to not be properly initialised (depending on code path and compiler settings)/ Helmat has introduced a correction for this to make sure the target name is always initialized properly.
+affected:
+  - package:
+      name: doas
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 2.0
+          - fixed: 3.1.2
+    versions:
+      - 2.0.0
+      - 2.0.1
+      - 2.0.2
+      - 2.1.0
+      - 2.1.1
+      - 2.2.0
+      - 2.2.1
+      - 2.2.2
+      - 2.2.3
+      - 2.2.4
+      - 2.2.5
+      - 2.2.6
+      - 2.2.7
+      - 2.2.8
+      - 3.0.0
+      - 3.0.1
+      - 3.0.2
+      - 3.0.3
+      - 3.0.4
+      - 3.0.5
+      - 3.1.0
+      - 3.1.1
+references:
+  - type: WEB
+    url: https://github.com/slicer69/doas/releases/tag/6.3p9
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/1c8d24f6dca9389785d095e2737668e856600be1
+aliases:
+  -
+modified: "2023-04-03T01:17:00.600Z"
+published: "2023-04-03T02:22:58.600Z"

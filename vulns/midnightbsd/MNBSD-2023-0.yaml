@@ -1,0 +1,56 @@
+id: MNBSD-2023-0
+details: utility.c in telnetd in netkit telnet through 0.17 allows remote attackers to execute arbitrary code via short writes or urgent data, because of a buffer overflow involving the netclear and nextitem functions.
+summary: Buffer overflow in telnetd allows remote code execution
+affected:
+  - package:
+      name: telnetd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 0.1.0
+          - fixed: 3.0.1
+    versions:
+      - 0.1.0
+      - 0.1.1
+      - 0.2.0
+      - 0.2.1
+      - 0.3.0
+      - 0.4.0
+      - 0.5.0
+      - 0.6.0
+      - 0.7.0
+      - 0.8.0
+      - 0.9.0
+      - 1.0.0
+      - 1.1.0
+      - 1.2.0
+      - 2.0.0
+      - 2.0.1
+      - 2.0.2
+      - 2.1.0
+      - 2.1.1
+      - 2.2.0
+      - 2.2.1
+      - 2.2.2
+      - 2.2.3
+      - 2.2.4
+      - 2.2.5
+      - 2.2.6
+      - 2.2.7
+      - 2.2.8
+      - 3.0.0
+      -
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2020-10188
+  - type: WEB
+    url: https://github.com/krb5/krb5-appl/blob/d00cd671dfe945791b33d4f1f6a5c57ae1667ef8/telnet/telnetd/utility.c#L205-L216
+  - type: WEB
+    url: https://appgateresearch.blogspot.com/2020/02/bravestarr-fedora-31-netkit-telnetd_28.html
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/db4d8bca9d3c1922a921d0ec5036a28b25332433
+aliases:
+  - CVE-2020-10188
+modified: "2023-04-03T01:17:00.600Z"
+published: "2023-04-03T02:22:58.600Z"
