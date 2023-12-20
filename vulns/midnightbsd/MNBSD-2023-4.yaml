@@ -38,7 +38,5 @@ references:
     url: https://github.com/slicer69/doas/releases/tag/6.3p9
   - type: WEB
     url: https://github.com/MidnightBSD/src/commit/1c8d24f6dca9389785d095e2737668e856600be1
-aliases:
-  -
 modified: "2023-04-03T01:17:00.600Z"
 published: "2023-04-03T02:22:58.600Z"
