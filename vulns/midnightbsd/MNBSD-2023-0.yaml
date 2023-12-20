@@ -40,7 +40,6 @@ affected:
       - 2.2.7
       - 2.2.8
       - 3.0.0
-      -
 references:
   - type: WEB
     url: https://nvd.nist.gov/vuln/detail/CVE-2020-10188
