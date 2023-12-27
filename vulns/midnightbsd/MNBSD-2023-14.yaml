@@ -1,0 +1,28 @@
+id: MNBSD-2023-14
+summary: libc stdio buffer overflow
+details: Depending on the nature of an application that calls libc's stdio functions
+  and the presence of errors returned from the write(2) system call (or an
+  overridden stdio write routine) a heap buffer overflow may occur.  Such
+  overflows may lead to data corruption or the execution of arbitrary code at
+  the privilege level of the calling program.
+affected:
+  - package:
+      name: libc
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 3.0.0
+          - fixed: 3.1.0
+    versions:
+      - 3.0.0
+      - 3.0.1
+      - 3.0.2
+      - 3.1.0
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-23:15.libc.asc
+aliases:
+  - FreeBSD-SA-23:15.libc
+modified: "2023-12-27T00:00:00.000Z"
+published: "2023-08-27T00:00:00.000Z"
