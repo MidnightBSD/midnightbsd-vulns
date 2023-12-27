@@ -1,0 +1,28 @@
+id: MNBSD-2023-13
+summary: TCP spoofing vulnerability in pf(4)
+details: An attacker can, with relatively little effort, inject packets into a
+  TCP stream destined to a host behind a pf firewall.  This could be used
+  to implement a denial-of-service attack for hosts behind the firewall,
+  for example by sending TCP RST packets to the host.
+affected:
+  - package:
+      name: pf
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 3.0.0
+          - fixed: 3.1.2
+    versions:
+      - 3.0.0
+      - 3.0.1
+      - 3.0.2
+      - 3.1.0
+      - 3.1.1
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-23:17.pf.asc
+aliases:
+  - FreeBSD-SA-23:17.pf
+modified: "2023-12-27T00:00:00.000Z"
+published: "2023-12-09T00:00:00.000Z"
