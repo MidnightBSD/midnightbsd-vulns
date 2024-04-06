@@ -1,0 +1,41 @@
+id: MNBSD-2024-0
+summary:  PEAP in wpa_supplicant allows authentication bypass
+details: The implementation of PEAP in wpa_supplicant through 2.10 allows authentication bypass. For a successful attack, 
+  wpa_supplicant must be configured to not verify the network's TLS certificate during Phase 1 authentication, and an 
+  eap_peap_decrypt vulnerability can then be abused to skip Phase 2 authentication. The attack vector is sending an EAP-TLV 
+  Success packet instead of starting Phase 2. This allows an adversary to impersonate Enterprise Wi-Fi networks.
+affected:
+  - package:
+      name: wpa_supplicant
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 2.2.0
+          - fixed: 3.1.4
+    versions:
+      - 2.2.0
+      - 2.2.1
+      - 2.2.2
+      - 2.2.3
+      - 2.2.4
+      - 2.2.5
+      - 2.2.6
+      - 2.2.7
+      - 2.2.8
+      - 3.0.0
+      - 3.0.1
+      - 3.0.2
+      - 3.1.0
+      - 3.1.1
+      - 3.1.2
+      - 3.1.3
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/view/vuln/detail?vulnId=CVE-2023-52160
+  - type: WEB
+    url: https://w1.fi/cgit/hostap/commit/?id=8e6485a1bcb0baffdea9e55255a81270b768439c
+aliases:
+  - CVE-2023-52160
+modified: "2024-04--06T00:00:00.000Z"
+published: "2024-04--06T00:00:00.000Z"
