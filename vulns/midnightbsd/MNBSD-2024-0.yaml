@@ -35,6 +35,8 @@ references:
     url: https://nvd.nist.gov/view/vuln/detail?vulnId=CVE-2023-52160
   - type: WEB
     url: https://w1.fi/cgit/hostap/commit/?id=8e6485a1bcb0baffdea9e55255a81270b768439c
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/09463a47fa7f78eedfe72d5eb10e88c5530febb3
 aliases:
   - CVE-2023-52160
 modified: "2024-04--06T00:00:00.000Z"
