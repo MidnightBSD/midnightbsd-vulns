@@ -1,17 +1,16 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #
 #  Copyright 2023 Lucas Holt
 #  Licensed under the Apache License, Version 2.0.
 #  See http://www.apache.org/licenses/LICENSE-2.0 for the full text.
 """
 Usage:
-    python osvtohtml.py < /path/to/yaml > doc.html
+    python osvtohtml.py /path/to/yaml > doc.html
 """
 import sys
 import yaml
 
-TEMPLATE = """
-<!DOCTYPE html>
+TEMPLATE = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
