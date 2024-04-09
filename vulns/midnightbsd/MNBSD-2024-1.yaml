@@ -1,0 +1,40 @@
+id: MNBSD-2024-1
+summary:  Unbound DNSSEC DOS attack
+details: Certain DNSSEC aspects of the DNS protocol (in RFC 4033, 4034, 4035, 6840, and related RFCs) allow remote 
+  attackers to cause a denial of service (CPU consumption) via one or more DNSSEC responses, aka the "KeyTrap" issue. 
+  One of the concerns is that, when there is a zone with many DNSKEY and RRSIG records, the protocol specification 
+  implies that an algorithm must evaluate all combinations of DNSKEY and RRSIG records.
+affected:
+  - package:
+      name: unbound
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 2.2.0
+          - fixed: 3.1.5
+    versions:
+      - 2.2.0
+      - 2.2.1
+      - 2.2.2
+      - 2.2.3
+      - 2.2.4
+      - 2.2.5
+      - 2.2.6
+      - 2.2.7
+      - 2.2.8
+      - 3.0.0
+      - 3.0.1
+      - 3.0.2
+      - 3.1.0
+      - 3.1.1
+      - 3.1.2
+      - 3.1.3
+      - 3.1.4
+references:
+  - type: WEB
+    url: https://www.cvedetails.com/cve/CVE-2023-50387/
+aliases:
+  - CVE-2023-50387
+modified: "2024-04-09T00:00:00.000Z"
+published: "2024-04-09T00:00:00.000Z"
