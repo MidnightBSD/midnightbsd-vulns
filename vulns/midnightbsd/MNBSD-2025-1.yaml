@@ -9,7 +9,7 @@ details: In order to export a file system via NFS, the file system must define a
   buffer overflow.
 affected:
   - package:
-      name: etcupdate
+      name: fs
       ecosystem: MidnightBSD
     ranges:
       - type: ECOSYSTEM
