@@ -1,4 +1,4 @@
-id: MNBSD-2050-0
+id: MNBSD-2025-0
 summary: Unprivileged access to system files
 details: When etcupdate encounters conflicts while merging files, it saves a version
   containing conflict markers in /var/db/etcupdate/conflicts.  This version does
