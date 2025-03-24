@@ -8,6 +8,7 @@ Usage:
     python osvtohtml.py /path/to/yaml > doc.html
 """
 import sys
+import os
 import yaml
 from datetime import datetime
 
@@ -66,9 +67,11 @@ Last Modified: {modified}
 </html>
 """
 
+
 def format_date(date_string):
     date = datetime.fromisoformat(date_string.replace("Z", "+00:00"))
     return date.strftime("%B %d, %Y")
+
 
 def get_severity_class(severity):
     severity = severity.lower()
@@ -81,59 +84,111 @@ def get_severity_class(severity):
     else:
         return "low"
 
-if len(sys.argv) == 1:
-    sys.exit(-1)
-else:
-    filename = sys.argv[1]
 
-vuln = yaml.load(open(filename, 'r'), Loader=yaml.FullLoader)
+def process_yaml_file(yaml_file_path, output_dir):
+    with open(yaml_file_path, 'r') as file:
+        vuln = yaml.safe_load(file)
 
-# Generate affected versions HTML
-affected_versions = ""
-for affected in vuln.get("affected", []):
-    package = affected.get("package", {}).get("name", "Unknown")
-    affected_versions += f"<h3>{package}</h3>"
-    affected_versions += "<ul>"
-    for version_range in affected.get("ranges", []):
-        type = version_range.get("type", "Unknown")
-        if type == "SEMVER":
-            events = version_range.get("events", [])
-            introduced = next((e["value"] for e in events if e["introduced"]), "Unknown")
-            fixed = next((e["value"] for e in events if e.get("fixed")), "Not Fixed")
-            affected_versions += f"<li>Introduced: {introduced}, Fixed: {fixed}</li>"
-        elif type == "GIT":
-            events = version_range.get("events", [])
-            introduced = next((e["value"] for e in events if e["introduced"]), "Unknown")
-            fixed = next((e["value"] for e in events if e.get("fixed")), "Not Fixed")
-            affected_versions += f"<li>Introduced commit: {introduced}, Fixed commit: {fixed}</li>"
-    affected_versions += "</ul>"
-
-    versions = affected.get("versions", [])
-    if versions:
-        affected_versions += "<p>Specific versions:</p><ul>"
-        for version in versions:
-            affected_versions += f"<li>{version}</li>"
+    # Generate affected versions HTML
+    affected_versions = ""
+    package = "Unknown"
+    for affected in vuln.get("affected", []):
+        package = affected.get("package", {}).get("name", "Unknown")
+        affected_versions += f"<h3>{package}</h3>"
+        affected_versions += "<ul>"
+        for version_range in affected.get("ranges", []):
+            type = version_range.get("type", "Unknown")
+            if type == "SEMVER":
+                events = version_range.get("events", [])
+                introduced = next((e["value"] for e in events if e["introduced"]), "Unknown")
+                fixed = next((e["value"] for e in events if e.get("fixed")), "Not Fixed")
+                affected_versions += f"<li>Introduced: {introduced}, Fixed: {fixed}</li>"
+            elif type == "GIT":
+                events = version_range.get("events", [])
+                introduced = next((e["value"] for e in events if e["introduced"]), "Unknown")
+                fixed = next((e["value"] for e in events if e.get("fixed")), "Not Fixed")
+                affected_versions += f"<li>Introduced commit: {introduced}, Fixed commit: {fixed}</li>"
         affected_versions += "</ul>"
 
-references = "\n".join(f'<li><a href="{u["url"]}">{u["url"]}</a></li>' for u in vuln["references"])
-aliases = ", ".join(str(x) for x in vuln["aliases"])
+        versions = affected.get("versions", [])
+        if versions:
+            affected_versions += "<p>Specific versions:</p><ul>"
+            for version in versions:
+                affected_versions += f"<li>{version}</li>"
+            affected_versions += "</ul>"
 
-severity = vuln.get("severity", "Unknown")
-severity_class = get_severity_class(severity)
+    references = "\n".join(f'<li><a href="{u["url"]}">{u["url"]}</a></li>' for u in vuln["references"])
+    aliases = vuln.get("aliases", [])
+    if isinstance(aliases, list):
+        aliases = ", ".join(str(x) for x in aliases)
+    elif aliases:
+        aliases = str(aliases)
+    else:
+        aliases = "None"
+
+    severity = vuln.get("severity", "Unknown")
+    severity_class = get_severity_class(severity)
+
+    html_content = TEMPLATE.format(
+        css=CSS,
+        id=vuln["id"],
+        summary=vuln["summary"],
+        severity=severity,
+        severity_class=severity_class,
+        package=package,
+        description=vuln["details"],
+        affected_versions=affected_versions,
+        recommendations=vuln.get("recommendations", "No specific recommendations provided."),
+        modified=format_date(vuln["modified"]),
+        published=format_date(vuln["published"]),
+        references=references,
+        aliases=aliases
+    )
+
+    # Generate output file name
+    base_name = os.path.splitext(os.path.basename(yaml_file_path))[0]
+    output_file = os.path.join(output_dir, f"{base_name}.html")
+
+    # Write HTML content to file
+    with open(output_file, 'w') as file:
+        file.write(html_content)
+
+    print(f"Generated: {output_file}")
 
 
-sys.stdout.write(TEMPLATE.format(
-    css=CSS,
-    id=vuln["id"],
-    summary=vuln["summary"],
-    severity=severity,
-    severity_class=severity_class,
-    package=package,
-    description=vuln["details"],
-    affected_versions=affected_versions,
-    recommendations=vuln.get("recommendations", "No specific recommendations provided."),
-    modified=format_date(vuln["modified"]),
-    published=format_date(vuln["published"]),
-    references=references,
-    aliases=aliases
-))
+def main():
+    if len(sys.argv) < 2 or len(sys.argv) > 3:
+        print("Usage: python3 osvtohtml.py /path/to/yaml/directory [/path/to/output/directory]")
+        sys.exit(1)
+
+    input_directory = sys.argv[1]
+    if not os.path.isdir(input_directory):
+        print(f"Error: {input_directory} is not a valid directory")
+        sys.exit(1)
+
+    if len(sys.argv) == 3:
+        output_directory = sys.argv[2]
+        if not os.path.exists(output_directory):
+            os.makedirs(output_directory)
+    else:
+        output_directory = input_directory
+
+    print(f"Input directory: {input_directory}")
+    print(f"Output directory: {output_directory}")
+
+    yaml_files = [f for f in os.listdir(input_directory) if f.endswith(('.yaml', '.yml'))]
+    print(f"Found {len(yaml_files)} YAML files")
+
+    if not yaml_files:
+        print("No YAML files found in the input directory")
+        sys.exit(1)
+
+    for filename in yaml_files:
+        yaml_file_path = os.path.join(input_directory, filename)
+        print(f"Processing: {yaml_file_path}")
+        try:
+            process_yaml_file(yaml_file_path, output_directory)
+        except Exception as e:
+            print(f"Error processing {filename}: {str(e)}")
+if __name__ == "__main__":
+    main()
