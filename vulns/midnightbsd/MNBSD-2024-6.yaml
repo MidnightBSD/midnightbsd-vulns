@@ -1,0 +1,63 @@
+id: MNBSD-2024-6
+summary: OpenSSH pre-authentication remote code execution
+details: A signal handler in sshd(8) calls a function that is not async-signal-safe.
+  The signal handler is invoked when a client does not authenticate within the
+  LoginGraceTime seconds (120 by default).  This signal handler executes in the
+  context of the sshd(8)'s privileged code, which is not sandboxed and runs
+  with full root privileges.
+  
+  This issue is a regression of CVE-2006-5051 originally reported by Mark Dowd
+  and accidentally reintroduced in OpenSSH 8.5p1.
+  
+  As a result of calling functions that are not async-signal-safe in the
+  privileged sshd(8) context, a race condition exists that a determined
+  attacker may be able to exploit to allow an unauthenticated remote code
+  execution as root
+affected:
+  - package:
+      name: openssh
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 2.2.0
+          - fixed: 3.2.0
+    versions:
+      - 2.2.0
+      - 2.2.1
+      - 2.2.2
+      - 2.2.3
+      - 2.2.4
+      - 2.2.5
+      - 2.2.6
+      - 2.2.7
+      - 2.2.8
+      - 3.0.0
+      - 3.0.1
+      - 3.0.2
+      - 3.1.0
+      - 3.1.1
+      - 3.1.2
+      - 3.1.3
+      - 3.1.4
+      - 3.1.5
+      - 3.2.0
+references:
+  - type: WEB
+    url: https://www.cvedetails.com/cve/CVE-2024-6387/
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-24:04.openssh.asc
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/707e967ba5796534418ee8f056e47b2ffa89bcbf
+aliases:
+  - CVE-2024-6387
+  - FreeBSD-SA-24:04.openssh
+recommendations: If sshd(8) cannot be updated, this signal handler race condition can be
+  mitigated by setting LoginGraceTime to 0 in /etc/ssh/sshd_config and
+  restarting sshd(8).  This makes sshd(8) vulnerable to a denial of service
+  (the exhaustion of all MaxStartups connections), but makes it safe from the
+  remote code execution presented in this advisory.
+  
+  Update to MidnightBSD 3.2.0 release by using the normal update procedure.
+modified: "2025-03-24T00:00:00.000Z"
+published: "2024-10-30T00:00:00.000Z"
