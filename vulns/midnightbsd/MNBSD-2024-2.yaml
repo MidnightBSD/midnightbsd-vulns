@@ -5,6 +5,9 @@ details: The fetch(3) library uses environment variables for passing certain
   name used by fetch(1) to pass the filename to the library was incorrect, in
   effect ignoring the option. Fetch would still connect to a host presenting a certificate included in the
   revocation file passed to the --crl option.
+severity:
+  type: CVSS_V3
+  score: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N
 affected:
   - package:
       name: fetch

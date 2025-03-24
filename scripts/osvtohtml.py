@@ -72,18 +72,53 @@ def format_date(date_string):
     date = datetime.fromisoformat(date_string.replace("Z", "+00:00"))
     return date.strftime("%B %d, %Y")
 
+def parse_cvss_score(score):
+    if score.startswith("CVSS:"):
+        parts = score.split("/")
+        base_score = parts[0].split(":")[1]
+        return float(base_score)
+    return None
 
 def get_severity_class(severity):
-    severity = severity.lower()
-    if severity == "critical":
-        return "critical"
-    elif severity == "high":
-        return "high"
-    elif severity == "medium":
-        return "medium"
-    else:
-        return "low"
+    if not severity or not isinstance(severity, list) or len(severity) == 0:
+        return "unknown"
 
+    highest_score = 0
+    for sev in severity:
+        if sev['type'] in ['CVSS_V2', 'CVSS_V3', 'CVSS_V4']:
+            score = parse_cvss_score(sev['score'])
+            if score is not None:
+                highest_score = max(highest_score, score)
+        elif sev['type'] == 'Ubuntu':
+            ubuntu_scores = {
+                'negligible': 0,
+                'low': 3,
+                'medium': 5,
+                'high': 7,
+                'critical': 9
+            }
+            score = ubuntu_scores.get(sev['score'].lower(), 0)
+            highest_score = max(highest_score, score)
+    if highest_score >= 9.0:
+        return "critical"
+    elif highest_score >= 7.0:
+        return "high"
+    elif highest_score >= 4.0:
+        return "medium"
+    elif highest_score > 0:
+        return "low"
+    else:
+        return "unknown"
+
+def format_severity(severity):
+    if not severity or not isinstance(severity, list) or len(severity) == 0:
+        return "Unknown"
+
+    severity_strings = []
+    for sev in severity:
+        severity_strings.append(f"{sev['type']}: {sev['score']}")
+
+    return ", ".join(severity_strings)
 
 def process_yaml_file(yaml_file_path, output_dir):
     with open(yaml_file_path, 'r') as file:
@@ -126,14 +161,15 @@ def process_yaml_file(yaml_file_path, output_dir):
     else:
         aliases = "None"
 
-    severity = vuln.get("severity", "Unknown")
+    severity = vuln.get("severity", [])
+    severity_formatted = format_severity(severity)
     severity_class = get_severity_class(severity)
 
     html_content = TEMPLATE.format(
         css=CSS,
         id=vuln["id"],
         summary=vuln["summary"],
-        severity=severity,
+        severity=severity_formatted,
         severity_class=severity_class,
         package=package,
         description=vuln["details"],

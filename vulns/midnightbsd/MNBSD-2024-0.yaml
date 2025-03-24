@@ -4,6 +4,9 @@ details: The implementation of PEAP in wpa_supplicant through 2.10 allows authen
   wpa_supplicant must be configured to not verify the network's TLS certificate during Phase 1 authentication, and an 
   eap_peap_decrypt vulnerability can then be abused to skip Phase 2 authentication. The attack vector is sending an EAP-TLV 
   Success packet instead of starting Phase 2. This allows an adversary to impersonate Enterprise Wi-Fi networks.
+severity:
+  type: CVSS_V3
+  score: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N
 affected:
   - package:
       name: wpa_supplicant

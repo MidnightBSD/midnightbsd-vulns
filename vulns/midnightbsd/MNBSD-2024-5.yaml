@@ -14,6 +14,9 @@ details: A signal handler in sshd(8) may call a logging function that is not asy
   privileged sshd(8) context, a race condition exists that a determined
   attacker may be able to exploit to allow an unauthenticated remote code
   execution as root.
+severity:
+  type: CVSS_V3
+  score: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H
 affected:
   - package:
       name: openssh

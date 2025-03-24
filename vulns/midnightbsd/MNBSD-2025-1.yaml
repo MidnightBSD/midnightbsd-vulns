@@ -7,6 +7,9 @@ details: In order to export a file system via NFS, the file system must define a
   VFS_FHTOVP(9). On 64-bit systems, the implementation of VOP_VPTOFH() in the cd9660, tarfs and
   ext2fs filesystems overflows the destination FID buffer by 4 bytes, a stack
   buffer overflow.
+severity:
+  type: CVSS_V3
+  score: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:H
 affected:
   - package:
       name: fs
