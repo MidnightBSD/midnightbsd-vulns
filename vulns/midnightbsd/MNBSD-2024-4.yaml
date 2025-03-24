@@ -16,7 +16,7 @@ details: A signal handler in sshd(8) may call a logging function that is not asy
   execution as root.
 affected:
   - package:
-      name: ctl
+      name: openssh
       ecosystem: MidnightBSD
     ranges:
       - type: ECOSYSTEM
@@ -48,5 +48,5 @@ recommendations: If sshd(8) cannot be updated, this signal handler race conditio
   remote code execution presented in this advisory.
   
   Update to MidnightBSD 3.2.1 release by using the normal update procedure.
-modified: "2025-03-24T00:00:00.000Z"
+modified: "2025-03-24T02:58:00.000Z"
 published: "2024-10-30T00:00:00.000Z"
