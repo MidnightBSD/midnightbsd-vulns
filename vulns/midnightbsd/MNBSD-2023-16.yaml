@@ -1,7 +1,9 @@
 id: MNBSD-2023-16
 summary: Wi-Fi encryption bypass
-details: A user with write access to files on a msdosfs file system may be able to
-  read unintended data (for example, from a previously deleted file).
+details: The net80211 subsystem would fallback to the multicast key for unicast
+  traffic in the event the unicast key was removed.  This would result in
+  buffered unicast traffic being exposed to any stations with access to the
+  multicast key.
 affected:
   - package:
       name: net80211
@@ -24,5 +26,6 @@ references:
 aliases:
   - FreeBSD-SA-23:11.wifi
   - CVE-2022-47522
-modified: "2023-12-28T00:00:00.000Z"
+recommendations: No workaround is available.  Systems not using Wi-Fi are not affected.
+modified: "2025-03-24T00:00:00.000Z"
 published: "2023-12-28T00:00:00.000Z"
