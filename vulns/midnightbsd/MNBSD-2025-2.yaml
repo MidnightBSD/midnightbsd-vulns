@@ -1,0 +1,30 @@
+id: MNBSD-2025-2
+summary: stack overflow in expat
+details: Fix crash from chaining a large number of entities caused by stack overflow by resolving use of recursion, for all three uses of entities
+     general entities in character data ("<e>&g1;</e>")
+     general entities in attribute values ("<e k1='&g1;'/>")
+     parameter entities ("%p1;")
+severity:
+  type: CVSS_V3
+  score: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H/E:H/RL:O/RC:C
+affected:
+  - package:
+      name: expat
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 3.2.0
+          - fixed: 4.0.0
+    versions:
+      - 3.2.0
+      - 3.2.1
+      - 3.2.2
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2024-8176
+aliases:
+  - CVE-2024-8176
+recommendations: Use expat from mports on older releases as a workaround. 4.0-current has been updated to expat 2.7.1
+modified: "2025-04-02T00:00:00.000Z"
+published: "2025-04-02T00:00:00.000Z"

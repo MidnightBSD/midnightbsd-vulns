@@ -1,6 +1,9 @@
 id: MNBSD-2023-14
 summary: libc stdio buffer overflow
-details: Depending on the nature of an application that calls libc's stdio functions
+details: For line-buffered streams the __sflush() function did not correctly update
+  the FILE object's write space member when the write(2) system call returns
+  an error.
+  Depending on the nature of an application that calls libc's stdio functions
   and the presence of errors returned from the write(2) system call (or an
   overridden stdio write routine) a heap buffer overflow may occur.  Such
   overflows may lead to data corruption or the execution of arbitrary code at
@@ -21,8 +24,11 @@ affected:
       - 3.1.0
 references:
   - type: WEB
-    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-23:15.libc.asc
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-23:15.stdio.asc
+  - type: WEB
+    url: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-5941
 aliases:
   - FreeBSD-SA-23:15.libc
-modified: "2023-12-27T00:00:00.000Z"
+  - CVE-2023-5941
+modified: "2025-03-24T00:00:00.000Z"
 published: "2023-08-27T00:00:00.000Z"
