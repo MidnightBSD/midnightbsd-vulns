@@ -1,0 +1,28 @@
+id: MNBSD-2025-3
+summary: xz-utils threaded decoder is vulnerable to DOS
+details: The threaded .xz decoder in liblzma has a bug that can at least result
+  in a crash (denial of service). The effects include heap use after free
+  and writing to an address based on the null pointer plus an offset. 
+  This affects XZ Utils versions from 5.3.3alpha to 5.8.0. Applications
+  and libraries that use the lzma_stream_decoder_mt function are affected
+affected:
+  - package:
+      name: xz-utils
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 3.0.0
+          - fixed: 3.2.3
+    versions:
+      - 3.2.0
+      - 3.2.1
+      - 3.2.2
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2025-31115
+aliases:
+  - CVE-2025-31115
+recommendations: update to the latest release
+modified: "2025-04-03T00:00:00.000Z"
+published: "2025-04-03T00:00:00.000Z"
