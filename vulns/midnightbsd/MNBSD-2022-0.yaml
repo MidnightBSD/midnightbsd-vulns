@@ -1,0 +1,42 @@
+id: MNBSD-2022-0
+details: Fixes a security issue with NULL argv[0] entries, similar to the recent
+  CVE with polkit on Linux. The current POC for that does not work on
+  MidnightBSD since we don't use glibc, but proactively prevent similar issues.
+summary: Reject execve when new argc is zero
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: 0.1.0
+          - fixed: 2.1.4
+    versions:
+      - 0.1.0
+      - 0.1.1
+      - 0.2.0
+      - 0.2.1
+      - 0.3.0
+      - 0.4.0
+      - 0.5.0
+      - 0.6.0
+      - 0.7.0
+      - 0.8.0
+      - 0.9.0
+      - 1.0.0
+      - 1.1.0
+      - 1.2.0
+      - 2.0.0
+      - 2.0.1
+      - 2.0.2
+      - 2.1.0
+      - 2.1.1
+      - 2.1.2
+      - 2.1.3
+references:
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/4348ca6320189db4db7e94d300f65d8c6f8a46ec
+aliases:
+modified: "2022-01-26T01:17:00.600Z"
+published: "2022-01-26T02:22:58.600Z"
