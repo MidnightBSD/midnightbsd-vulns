@@ -1,0 +1,28 @@
+id: MNBSD-2026-11
+summary: Kernel use-after-free bug in the TIOCNOTTY handler
+details: |
+  The implementation of TIOCNOTTY failed to clear a back-pointer from the
+  structure representing the controlling terminal to the calling process'
+  session. If the invoking process then exits, the terminal structure
+  may end up containing a pointer to freed memory.
+
+  A malicious process can abuse the dangling pointer to grant itself root
+  privileges.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.1.0"
+references:
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:10.tty.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-5398
+aliases:
+  - CVE-2026-5398
+modified: "2026-04-21T12:00:00Z"
+published: "2026-04-21T12:00:00Z"

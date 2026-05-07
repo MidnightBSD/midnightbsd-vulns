@@ -1,0 +1,29 @@
+id: MNBSD-2026-9
+summary: Remote code execution via malicious DHCP options
+details: |
+  The BOOTP file field is written to the lease file without escaping embedded
+  double-quotes, allowing injection of arbitrary dhclient.conf directives.
+  When the lease file is subsequently re-parsed by dhclient, e.g., after a
+  system restart, an attacker-controlled field from the lease is passed to
+  dhclient-script(8), which evaluates it.
+
+  A rogue DHCP server may be able to execute arbitrary code as root on a system
+  running dhclient.
+affected:
+  - package:
+      name: dhclient
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.1.0"
+references:
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:12.dhclient.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-42511
+aliases:
+  - CVE-2026-42511
+modified: "2026-04-29T12:00:00Z"
+published: "2026-04-29T12:00:00Z"

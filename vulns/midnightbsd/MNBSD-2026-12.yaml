@@ -1,0 +1,34 @@
+id: MNBSD-2026-12
+summary: Remote code execution via RPCSEC_GSS packet validation
+details: |
+  Each RPCSEC_GSS data packet is validated by a routine which checks a signature
+  in the packet. This routine copies a portion of the packet into a stack buffer,
+  but fails to ensure that the buffer is sufficiently large, and a malicious
+  client can trigger a stack overflow. Notably, this does not require the client
+  to authenticate itself first.
+
+  As kgssapi.ko's RPCSEC_GSS implementation is vulnerable, remote code execution
+  in the kernel is possible by an authenticated user that is able to send packets
+  to the kernel's NFS server while kgssapi.ko is loaded into the kernel.
+
+  In userspace, applications which have librpcgss_sec loaded and run an RPC server
+  are vulnerable to remote code execution from any client able to send it packets.
+  We are not aware of any such applications in the FreeBSD base system.
+affected:
+  - package:
+      name: rpcsec_gss
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.5"
+references:
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:08.rpcsec_gss.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-4747
+aliases:
+  - CVE-2026-4747
+modified: "2026-03-26T12:00:00Z"
+published: "2026-03-26T12:00:00Z"

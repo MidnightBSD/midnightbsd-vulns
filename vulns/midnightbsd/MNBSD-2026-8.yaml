@@ -1,0 +1,27 @@
+id: MNBSD-2026-8
+summary: Local privilege escalation via execve()
+details: |
+  An operator precedence bug in the kernel results in a scenario where a buffer
+  overflow causes attacker-controlled data to overwrite adjacent execve(2)
+  argument buffers.
+
+  The bug may be exploitable by an unprivileged user to obtain superuser
+  privileges.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.5"
+references:
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:13.exec.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-7270
+aliases:
+  - CVE-2026-7270
+modified: "2026-04-29T12:00:00Z"
+published: "2026-04-29T12:00:00Z"

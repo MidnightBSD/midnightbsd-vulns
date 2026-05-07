@@ -1,0 +1,31 @@
+id: MNBSD-2026-7
+summary: pf can overflow the stack parsing crafted SCTP packets
+details: |
+  pf parses SCTP packets to discover additional addresses for SCTP endpoints,
+  allowing it to create states allowing connections between these additional
+  addresses.
+
+  Incorrect packet validation allowed unbounded recursion parsing SCTP chunk
+  parameters. This can eventually result in a stack overflow and panic.
+
+  Remote attackers can craft packets which cause affected systems to panic.
+  This affects any system where pf is configured to process traffic,
+  independent of the configured ruleset.
+affected:
+  - package:
+      name: pf
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.5"
+references:
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:14.pf.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-7164
+aliases:
+  - CVE-2026-7164
+modified: "2026-04-29T12:00:00Z"
+published: "2026-04-29T12:00:00Z"
