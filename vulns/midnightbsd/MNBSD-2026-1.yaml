@@ -1,0 +1,28 @@
+id: MNBSD-2026-1
+summary: Jail chroot escape via fd exchange with a different jail
+details: |
+  In a configuration where processes in two different jails are able to exchange
+  file descriptors using a Unix domain socket, it is possible for a jailed
+  process to receive a directory for a descriptor that is below that process'
+  jail root. This enables full filesystem access for a jailed process, breaking
+  the chroot.
+
+  Note that the system administrator is still responsible for ensuring that an
+  unprivileged user on the jail host is not able to pass directory descriptors
+  to a jailed process, even in a patched kernel.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: 4.0.3
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-26:04.jail.asc
+aliases:
+  - CVE-2025-15576
+modified: "2026-03-16T12:00:00Z"
+published: "2026-03-16T12:00:00Z"

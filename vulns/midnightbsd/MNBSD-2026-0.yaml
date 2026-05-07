@@ -1,0 +1,29 @@
+id: MNBSD-2026-0
+summary: Local DoS and possible privilege escalation via routing sockets
+details: |
+  The bug allows an unprivileged user to crash the kernel by triggering a stack
+  buffer overflow in rtsock_msg_buffer(). In particular, the overflow will
+  corrupt a stack canary value that is verified when the function returns; this
+  mitigates the impact of the stack overflow by triggering a kernel panic.
+
+  Other kernel bugs may exist that allow userspace to find the canary value and
+  thus defeating the mitigation, at which point local privilege escalation may be
+  possible.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: 4.0.3
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-26:05.route.asc
+  - type: WEB
+    url: https://www.cvedetails.com/cve/cve-2026-3038
+aliases:
+  - CVE-2026-3038
+modified: "2026-03-16T12:00:00Z"
+published: "2026-03-16T12:00:00Z"

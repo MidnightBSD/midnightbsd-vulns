@@ -1,0 +1,25 @@
+id: MNBSD-2026-2
+summary: ASN1_TYPE Type Confusion in the PKCS7_digest_from_attributes() function
+details: |
+  The issues include improper/missing validation, NULL pointer dereferences,
+  out-of-bounds writes, incorrect data exposure, input truncation, excessive
+  memory allocation, and a stack buffer overflow.
+
+  Security impact can be a minimal information disclosure to a potential remote
+  code execution. See the OpenSSL advisory for specific details.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: 4.0.3
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-26:01.openssl.asc
+aliases:
+  - CVE-2026-22796
+modified: "2026-03-16T12:00:00Z"
+published: "2026-03-16T12:00:00Z"

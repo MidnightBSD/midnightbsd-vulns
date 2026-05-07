@@ -1,0 +1,20 @@
+id: MNBSD-2026-3
+summary: expat null pointer dereference
+details: |
+  libexpat before 2.7.5 allows a NULL pointer dereference in the function setContext on retry after an earlier ouf-of-memory condition.
+affected:
+  - package:
+      name: expat
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: 4.0.4
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/cve-2026-32778
+aliases:
+  - CVE-2026-32778
+modified: "2026-03-18T12:00:00Z"
+published: "2026-03-18T12:00:00Z"
