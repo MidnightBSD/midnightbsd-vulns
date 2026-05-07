@@ -1,0 +1,29 @@
+id: MNBSD-2026-6
+summary: Remotely triggerable out-of-bounds heap write in dhclient
+details: |
+  As dhclient is building an environment to pass to dhclient-script, it may
+  need to resize the array of string pointers. The code which expands the
+  array incorrectly calculates its new size when requesting memory, resulting
+  in a heap buffer overrun.
+
+  A specially crafted packet can cause dhclient to overrun its buffer of
+  environment entries. This can result in a crash, but it may be possible to
+  leverage this bug to achieve remote code execution.
+affected:
+  - package:
+      name: dhclient
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.1.0"
+references:
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:15.dhclient.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-42512
+aliases:
+  - CVE-2026-42512
+modified: "2026-04-29T12:00:00Z"
+published: "2026-04-29T12:00:00Z"
