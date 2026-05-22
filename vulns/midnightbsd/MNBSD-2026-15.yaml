@@ -1,0 +1,48 @@
+id: MNBSD-2026-15
+summary: Incorrect libcap_net limitation list manipulation
+details: |
+  libcasper(3) allows Capsicum-sandboxed applications to define and use system
+  interfaces which are otherwise not available in a capability sandbox, through
+  implementing special services. One of these services, libcap_net, enables
+  networking capabilities within the restricted environment.
+
+  Casper services allow the application to define fine-grained limits on each
+  operation handled by the service. Each service maintains a specific list of
+  permitted operations. Certain operations can be further restricted by
+  specifying an explicit list of allowed names. For example, libcap_net allows
+  the application to limit the addresses to which the application may bind or
+  connect. If it attempts to use libcap_net to bind or connect to addresses
+  outside the allowed list, the operation will fail.
+
+  In the case of the cap_net service, when a key present in the old limit was
+  omitted from the new limit, the missing key was treated as "allow any"
+  instead of being rejected.
+
+  In certain scenarios, an application that had previously restricted a subset
+  of network operations could ask for a new limit that extended the permissions
+  of the process.
+affected:
+  - package:
+      name: libcap_net
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "4.0.0"
+          - fixed: "4.0.6"
+    versions:
+      - 4.0.0
+      - 4.0.1
+      - 4.0.2
+      - 4.0.3
+      - 4.0.4
+      - 4.0.5
+references:
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:24.cap_net.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-45254
+aliases:
+  - CVE-2026-45254
+modified: "2026-05-20T12:00:00Z"
+published: "2026-05-20T12:00:00Z"
