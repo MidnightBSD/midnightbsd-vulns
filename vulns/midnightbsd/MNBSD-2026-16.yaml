@@ -1,0 +1,38 @@
+id: MNBSD-2026-16
+summary: select(2) file descriptor set overflow causes stack overflow
+details: |
+  libcasper(3) communicates with helper processes via UNIX domain sockets, and
+  uses the select(2) system call to wait for data to become available.
+  However, it does not verify that its socket descriptor fits within
+  select(2)'s descriptor set size limit of FD_SETSIZE (1024).
+
+  An attacker able to cause an application using libcasper(3) to allocate large
+  file descriptors, e.g., by opening many descriptors and executing a program
+  which is not careful to close them upon startup, may trigger stack
+  corruption. If the target application runs with setuid root privileges, this
+  could be used to escalate local privileges.
+affected:
+  - package:
+      name: libcasper
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "4.0.0"
+          - fixed: "4.0.6"
+    versions:
+      - 4.0.0
+      - 4.0.1
+      - 4.0.2
+      - 4.0.3
+      - 4.0.4
+      - 4.0.5
+references:
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:22.libcasper.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-39461
+aliases:
+  - CVE-2026-39461
+modified: "2026-05-20T12:00:00Z"
+published: "2026-05-20T12:00:00Z"
