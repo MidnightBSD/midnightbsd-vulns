@@ -1,0 +1,19 @@
+id: MNBSD-2026-14
+summary: Vulnerability in unbound DNS
+details: |
+  Additional fix for CVE-2025-11411 (possible domain hijacking attack), to include YXDOMAIN and non-referral nodata answers in the mitigation as well, reported by TaoFei Guo from Peking University, Yang Luo and JianJun Chen from Tsinghua University.
+affected:
+  - package:
+      name: unbound
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "4.0.0"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2025-11411
+aliases:
+  - CVE-2025-11411
+modified: "2026-05-21T12:00:00Z"
+published: "2026-05-21T12:00:00Z"
