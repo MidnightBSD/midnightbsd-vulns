@@ -1,0 +1,22 @@
+id: MNBSD-2022-7
+summary: Heap overflow in mpr/mps/mpt CFG_PAGE ioctl handlers
+details: |
+  Handlers for the *_CFG_PAGE read/write ioctls in the mpr, mps and mpt disk-controller drivers allocated a buffer of a caller-specified size but copied a fixed-size header into it. If the specified size was too small, other heap contents would be overwritten, which a privileged user could leverage to corrupt kernel memory.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:06.ioctl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23086
+aliases:
+  - CVE-2022-23086
+modified: "2022-04-06T12:00:00Z"
+published: "2022-04-06T12:00:00Z"

@@ -1,0 +1,24 @@
+id: MNBSD-2022-13
+summary: Out-of-bounds write in lib9p RWALK message handling
+details: |
+  A missing bounds check in the RWALK message handling of lib9p, used by bhyve's virtio-9p (VirtFS) device, allowed a malicious guest to overwrite unrelated memory in the bhyve process, potentially enabling user-mode code execution on the host.
+affected:
+  - package:
+      name: lib9p
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.2.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:12.lib9p.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23092
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/c536045c51da
+aliases:
+  - CVE-2022-23092
+modified: "2022-08-09T12:00:00Z"
+published: "2022-08-09T12:00:00Z"

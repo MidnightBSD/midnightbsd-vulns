@@ -1,0 +1,24 @@
+id: MNBSD-2022-8
+summary: Heap overflow in 802.11s Mesh ID beacon handling
+details: |
+  The 802.11 beacon handling routine failed to validate the length of an IEEE 802.11s Mesh ID before copying it into a heap-allocated buffer. A malicious beacon frame could overwrite kernel memory, potentially achieving remote code execution when a MidnightBSD Wi-Fi client is in scanning mode.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:07.wifi_meshid.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23088
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/c95824fc2e2f
+aliases:
+  - CVE-2022-23088
+modified: "2022-04-06T12:00:00Z"
+published: "2022-04-06T12:00:00Z"

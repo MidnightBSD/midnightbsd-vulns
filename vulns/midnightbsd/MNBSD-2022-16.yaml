@@ -1,0 +1,34 @@
+id: MNBSD-2022-16
+summary: Multiple vulnerabilities in Heimdal Kerberos 5 and the KDC
+details: |
+  Multiple security vulnerabilities were fixed in the Heimdal implementation of the Kerberos 5 network authentication protocols and KDC: a PAC parse integer overflow (CVE-2022-42898); overflows and non-constant-time leaks in DES/DES3 and arcfour (CVE-2022-3437); a NULL pointer dereference denial of service in SPNEGO acceptors (CVE-2021-44758); an invalid free in the ASN.1 codec in the KDC (CVE-2022-44640); and several protocol-transition issues covering validation of client attributes, applying the forwardable policy, and always looking up the impersonated client in the database (CVE-2019-14870).
+affected:
+  - package:
+      name: heimdal
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.2.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:14.heimdal.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-42898
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-3437
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2021-44758
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-44640
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2019-14870
+aliases:
+  - CVE-2022-42898
+  - CVE-2022-3437
+  - CVE-2021-44758
+  - CVE-2022-44640
+  - CVE-2019-14870
+modified: "2022-11-15T12:00:00Z"
+published: "2022-11-15T12:00:00Z"

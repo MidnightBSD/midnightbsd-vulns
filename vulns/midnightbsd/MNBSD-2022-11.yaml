@@ -1,0 +1,24 @@
+id: MNBSD-2022-11
+summary: aio_aqueue() credential reference leak leading to use-after-free
+details: |
+  The aio_aqueue() function failed to release a credential reference on an error path. Repeatedly triggering the error could overflow the reference count, leading to a use-after-free that a local user might leverage for privilege escalation.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.2.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:10.aio.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23090
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/7f83d23ecfce
+aliases:
+  - CVE-2022-23090
+modified: "2022-08-09T12:00:00Z"
+published: "2022-08-09T12:00:00Z"

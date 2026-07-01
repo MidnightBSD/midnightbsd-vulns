@@ -1,0 +1,22 @@
+id: MNBSD-2022-3
+summary: OpenSSL BN_mod_sqrt() infinite loop when parsing crafted certificates
+details: |
+  The BN_mod_sqrt() function, which is used when parsing certificates that contain elliptic curve public keys in compressed form or explicit curve parameters with a base point encoded in compressed form, could be tricked into an infinite loop by a certificate with invalid explicit curve parameters. Because certificate parsing can happen before signature verification, any process that parses externally supplied certificates may be subject to a denial of service.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:03.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-0778
+aliases:
+  - CVE-2022-0778
+modified: "2022-03-15T12:00:00Z"
+published: "2022-03-15T12:00:00Z"

@@ -1,0 +1,27 @@
+id: MNBSD-2022-5
+summary: netmap TOCTOU and integer overflow leading to kernel memory corruption
+details: |
+  Two flaws affected the netmap kernel module. In nmreq_copyin() the total size of the user-provided nmreq was computed and then trusted during the copyin, allowing a time-of-check-to-time-of-use race that could lead to kernel memory corruption and escape from jails/containers (CVE-2022-23084). Separately, an unsanitized field in an option could be abused to cause an integer overflow followed by kernel memory corruption (CVE-2022-23085). A related reference-counting bug in netmap_ioctl() for the NETMAP_REQ_PORT_INFO_GET command could also leak references.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:04.netmap.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23084
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23085
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/ebc96eef6315
+aliases:
+  - CVE-2022-23084
+  - CVE-2022-23085
+modified: "2022-04-06T12:00:00Z"
+published: "2022-04-06T12:00:00Z"

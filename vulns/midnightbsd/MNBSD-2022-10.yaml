@@ -1,0 +1,24 @@
+id: MNBSD-2022-10
+summary: Out-of-bounds read in the ELF core dump handler
+details: |
+  When dumping core and saving process information, proc_getargv() could return an sbuf whose sbuf_len() was 0 or -1, a case that was not handled correctly. A crafted ps_strings could trigger an out-of-bounds read in the ELF core dump handler and crash the kernel.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.2.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:09.elf.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23089
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/527534a7fa62
+aliases:
+  - CVE-2022-23089
+modified: "2022-08-09T12:00:00Z"
+published: "2022-08-09T12:00:00Z"

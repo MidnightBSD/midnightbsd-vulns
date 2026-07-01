@@ -1,0 +1,18 @@
+id: MNBSD-2022-9
+summary: Resource leak in libmport leading to denial of service
+details: |
+  A resource leak in libmport, part of the mport package manager, could be triggered during package operations and result in a denial of service for other processes on the system.
+affected:
+  - package:
+      name: mport
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.2.1"
+references:
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/f6ecc12ff2c8
+modified: "2022-07-02T12:00:00Z"
+published: "2022-07-02T12:00:00Z"

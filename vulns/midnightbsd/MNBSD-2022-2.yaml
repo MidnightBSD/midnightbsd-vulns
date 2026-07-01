@@ -1,0 +1,28 @@
+id: MNBSD-2022-2
+summary: "FragAttacks: 802.11 frame aggregation/fragmentation design flaws in the wireless stack"
+details: |
+  The 802.11 (net80211) wireless stack was affected by the "Fragment and Forge" (FragAttacks) design and implementation flaws in 802.11 frame aggregation and fragmentation handling, together with missing length validation of SSID and information elements. Under certain conditions a nearby attacker may be able to extract sensitive data or inject packets, though abuse generally requires user interaction or is only possible when using uncommon network settings.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:02.wifi.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-26147
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-24588
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-26144
+aliases:
+  - CVE-2020-26147
+  - CVE-2020-24588
+  - CVE-2020-26144
+modified: "2022-03-15T12:00:00Z"
+published: "2022-03-15T12:00:00Z"

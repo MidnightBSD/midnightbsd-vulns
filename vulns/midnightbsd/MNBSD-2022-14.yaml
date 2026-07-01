@@ -1,0 +1,18 @@
+id: MNBSD-2022-14
+summary: Memory corruption in CAM error-recovery command retry
+details: |
+  When a CAM-managed device responds to a command with an error condition, CAM may automatically retry the command following an error recovery protocol, preserving an in-memory copy of the original command. A specific portion of the command state was not saved correctly, so upon retry this could lead to memory corruption.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.2.3"
+references:
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/dafba4e4618d
+modified: "2022-08-10T12:00:00Z"
+published: "2022-08-10T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2022-4
+summary: zlib out-of-bounds access in deflate() with the Z_FIXED strategy
+details: |
+  zlib before 1.2.12 contained a bug in the deflate implementation: when using the Z_FIXED strategy (or a compression level that selects it) with a specific memLevel, deflate could perform out-of-bounds accesses, leading to memory corruption. MidnightBSD imported zlib 1.2.12 to correct this.
+affected:
+  - package:
+      name: zlib
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.7"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:08.zlib.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2018-25032
+aliases:
+  - CVE-2018-25032
+modified: "2022-04-06T12:00:00Z"
+published: "2022-04-06T12:00:00Z"

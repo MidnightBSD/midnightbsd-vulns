@@ -1,0 +1,24 @@
+id: MNBSD-2022-12
+summary: Virtual memory use-after-free via retained mapping of a freed page
+details: |
+  A flaw in the virtual memory system allowed an unprivileged local user to maintain a mapping of a page after it had been freed, enabling unauthorized access to sensitive data belonging to other processes or the kernel.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.2.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:11.vm.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23091
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/0c88ecaa1255
+aliases:
+  - CVE-2022-23091
+modified: "2022-08-09T12:00:00Z"
+published: "2022-08-09T12:00:00Z"

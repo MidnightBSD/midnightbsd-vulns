@@ -1,0 +1,22 @@
+id: MNBSD-2022-15
+summary: zlib heap buffer over-read/overflow in inflate() via large gzip header extra field
+details: |
+  zlib through 1.2.12 had a heap-based buffer over-read or buffer overflow in inflate() in inflate.c via a large gzip header extra field. Applications that use inflateGetHeader() to process untrusted gzip data with a large extra field could be affected. Fixed on the current branch in 2.2.4 and on the older 1.2.x branch in 1.2.11.
+affected:
+  - package:
+      name: zlib
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.2.4"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:13.zlib.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-37434
+aliases:
+  - CVE-2022-37434
+modified: "2022-08-30T12:00:00Z"
+published: "2022-08-30T12:00:00Z"

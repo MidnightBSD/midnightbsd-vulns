@@ -1,0 +1,22 @@
+id: MNBSD-2022-6
+summary: bhyve e1000 out-of-bounds write via unvalidated checksum offset
+details: |
+  The e1000 network device model in bhyve used a guest-provided value as the checksum offset into an on-stack buffer when checksum offload was requested for a transmitted packet, without validating it for certain packet types. A malicious guest could write out of bounds in the host bhyve process, possibly leading to code execution in the host context.
+affected:
+  - package:
+      name: bhyve
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-22:05.bhyve.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2022-23087
+aliases:
+  - CVE-2022-23087
+modified: "2022-04-06T12:00:00Z"
+published: "2022-04-06T12:00:00Z"
