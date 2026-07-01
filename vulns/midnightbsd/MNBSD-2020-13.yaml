@@ -1,0 +1,25 @@
+id: MNBSD-2020-13
+summary: rtsold RDNSS/DNSSL option handling buffer overflow
+details: |
+  Two bugs existed in rtsold(8)'s handling of RDNSS and DNSSL router advertisement options. rtsold(8) failed to perform sufficient bounds checking, not verifying that an option did not extend past the end of the received packet (CVE-2020-25577). In addition, when decoding DNSSL domain name labels, rtsold(8) did not validate label lengths correctly and could overflow the destination buffer (CVE-2020-25583). Because rtsold(8) runs as root, an attacker on the same physical link could potentially achieve remote code execution.
+affected:
+  - package:
+      name: rtsold
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:32.rtsold.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-25577
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-25583
+aliases:
+  - CVE-2020-25577
+  - CVE-2020-25583
+modified: "2020-12-01T12:00:00Z"
+published: "2020-12-01T12:00:00Z"

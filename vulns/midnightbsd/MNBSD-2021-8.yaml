@@ -1,0 +1,22 @@
+id: MNBSD-2021-8
+summary: bhyve VirtIO device models memory corruption on descriptor fetch errors
+details: |
+  Certain VirtIO-based device models failed to handle errors when fetching I/O descriptors. Such errors could be triggered by a malicious guest, causing the device model code to operate on uninitialized I/O vectors and leading to memory corruption, which could crash the bhyve process or potentially achieve arbitrary code execution in the host.
+affected:
+  - package:
+      name: bhyve
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.0"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-21:13.bhyve.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2021-29631
+aliases:
+  - CVE-2021-29631
+modified: "2021-08-24T12:00:00Z"
+published: "2021-08-24T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2020-6
+summary: Use-after-free in the SCTP implementation
+details: |
+  A use-after-free in the SCTP implementation. Triggering the use-after-free may result in unintended kernel behaviour including a kernel panic.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:25.sctp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7463
+aliases:
+  - CVE-2020-7463
+modified: "2020-09-02T12:00:00Z"
+published: "2020-09-02T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2020-8
+summary: ftpd ftpchroot sandbox escape and privilege escalation
+details: |
+  A bug in ftpd(8)'s implementation of the file system sandbox, combined with capabilities available to an authenticated FTP user, could be used to escape the file system restriction configured with ftpchroot(5). Moreover, the bug allowed a malicious client to gain root privileges.
+affected:
+  - package:
+      name: ftpd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:30.ftpd.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7468
+aliases:
+  - CVE-2020-7468
+modified: "2020-09-15T12:00:00Z"
+published: "2020-09-15T12:00:00Z"

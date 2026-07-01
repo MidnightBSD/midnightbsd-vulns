@@ -1,0 +1,18 @@
+id: MNBSD-2020-11
+summary: udf file entry length validation overflow
+details: |
+  The udf file system did not validate the full file entry length. A corrupted UDF file entry containing invalid extended attribute lengths or allocation descriptor lengths could trigger an overflow when the file entry is loaded, for example when mounting a malicious UDF image. Discovered by C Turt.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.10"
+references:
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/fb7977502f94
+modified: "2020-09-23T12:00:00Z"
+published: "2020-09-23T12:00:00Z"

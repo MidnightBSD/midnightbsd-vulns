@@ -1,0 +1,18 @@
+id: MNBSD-2020-14
+summary: callout(9) may corrupt another CPU's data structures
+details: |
+  Callouts may be bound to a specific CPU. When a kernel thread attempts to stop a callout while it is actively executing, it sleeps until execution completes; in the meantime the callout may be rescheduled and re-executed on a different CPU. When the sleeping thread finally completed removal of the callout, it could modify the wrong CPU's data structures, leaving them in an invalid state.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.2"
+references:
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/commit/c849f305614c
+modified: "2020-12-02T12:00:00Z"
+published: "2020-12-02T12:00:00Z"

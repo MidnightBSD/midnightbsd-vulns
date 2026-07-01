@@ -1,0 +1,22 @@
+id: MNBSD-2021-5
+summary: Jail escape via race between ".." lookup and remount
+details: |
+  Due to a race condition between lookup of ".." and remounting a file system, a jailed process with superuser privileges and the allow.mount permission could access the filesystem hierarchy outside of the jail, gaining read and write access to files and directories on the host.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.7"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-21:10.jail_mount.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-25584
+aliases:
+  - CVE-2020-25584
+modified: "2021-04-06T12:00:00Z"
+published: "2021-04-06T12:00:00Z"

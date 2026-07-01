@@ -1,0 +1,22 @@
+id: MNBSD-2021-6
+summary: Linux compatibility layer futex(2) denial of service
+details: |
+  A programming error in the Linux compatibility layer futex(2) system call, where an unprivileged local attacker could specify a negative wake or requeue value causing a signed integer overflow, might allow attackers to cause a denial of service. Systems not using the Linux binary compatibility layer are not affected.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.0"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2018-6927
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-EN-21:22.linux_futex.asc
+aliases:
+  - CVE-2018-6927
+modified: "2021-06-29T12:00:00Z"
+published: "2021-06-29T12:00:00Z"

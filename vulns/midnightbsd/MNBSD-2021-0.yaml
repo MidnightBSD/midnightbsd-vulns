@@ -1,0 +1,25 @@
+id: MNBSD-2021-0
+summary: Uninitialized kernel stack disclosures in several file systems
+details: |
+  Several file systems failed to properly initialize memory before copying it to userland. Uninitialized kernel stack disclosures in tmpfs, smbfs, autofs and mqueuefs (CVE-2020-25578), and an uninitialized padding field in msdosfs (CVE-2020-25579), could leak sensitive kernel information to userspace, which may be used to help compromise the system.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-21:01.fsdisclosure.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-25578
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-25579
+aliases:
+  - CVE-2020-25578
+  - CVE-2020-25579
+modified: "2021-01-29T12:00:00Z"
+published: "2021-01-29T12:00:00Z"

@@ -1,0 +1,18 @@
+id: MNBSD-2021-7
+summary: libcasper assertion failure when a standard descriptor is closed
+details: |
+  libcasper(3) creates service processes by forking the calling process, so they initially inherit the caller's file descriptor table and expect the lowest three descriptors (standard input, output and error) to be redirected to /dev/null. libcasper(3) did not handle the possibility that one of them was closed, which would trigger an assertion failure during service creation, resulting in a crash.
+affected:
+  - package:
+      name: libcasper
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.0"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-EN-21:19.libcasper.asc
+modified: "2021-06-29T12:00:00Z"
+published: "2021-06-29T12:00:00Z"

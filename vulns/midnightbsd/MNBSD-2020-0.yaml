@@ -1,0 +1,27 @@
+id: MNBSD-2020-0
+summary: libalias insufficient packet length validation causes memory disclosure
+details: |
+  libalias(3), the library used for NAT (including the in-kernel NAT in ipfw and the userspace natd(8)), performed insufficient packet length validation. The FTP packet handler incorrectly calculated some packet lengths, which could disclose small amounts of memory from the kernel or from the natd process (CVE-2020-7455). More broadly, malicious packets could trigger out-of-bounds read or write conditions in the libalias packet handlers (CVE-2020-7454).
+affected:
+  - package:
+      name: libalias
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:12.libalias.asc
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:13.libalias.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7454
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7455
+aliases:
+  - CVE-2020-7454
+  - CVE-2020-7455
+modified: "2020-05-12T12:00:00Z"
+published: "2020-05-12T12:00:00Z"

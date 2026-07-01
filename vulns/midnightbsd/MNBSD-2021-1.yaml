@@ -1,0 +1,22 @@
+id: MNBSD-2021-1
+summary: Xen guest can trigger backend out-of-memory condition
+details: |
+  A malicious Xen guest could trigger an out-of-memory condition in the backend by generating watch events faster than the backend processing thread could handle them, resulting in a denial of service.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-21:02.xenoom.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-29568
+aliases:
+  - CVE-2020-29568
+modified: "2021-01-29T12:00:00Z"
+published: "2021-01-29T12:00:00Z"

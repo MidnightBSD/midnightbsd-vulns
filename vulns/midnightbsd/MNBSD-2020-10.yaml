@@ -1,0 +1,22 @@
+id: MNBSD-2020-10
+summary: bhyve does not trap AMD virtualization instructions
+details: |
+  A number of AMD virtualization instructions operate on host physical addresses and are not subject to nested page table translation. Guest use of these instructions was not trapped by bhyve, allowing a malicious guest on an AMD host to write to arbitrary host memory and potentially gain complete control of the host.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:29.bhyve_svm.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7467
+aliases:
+  - CVE-2020-7467
+modified: "2020-09-15T12:00:00Z"
+published: "2020-09-15T12:00:00Z"

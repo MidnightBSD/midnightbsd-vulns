@@ -1,0 +1,22 @@
+id: MNBSD-2020-3
+summary: Memory corruption in kern_getfsstat()
+details: |
+  A memory corruption vulnerability in the kernel's kern_getfsstat() system call. An earlier fix for a related issue (CVE-2018-17154) was incomplete because it incorrectly assumed the problem was a NULL pointer dereference. A local user could trigger memory corruption. Originally published as MIDNIGHTBSD-SA-20:01.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-24863
+  - type: WEB
+    url: https://www.midnightbsd.org/security/adv/MIDNIGHTBSD-SA-20:01.txt
+aliases:
+  - CVE-2020-24863
+modified: "2020-09-02T12:00:00Z"
+published: "2020-09-02T12:00:00Z"

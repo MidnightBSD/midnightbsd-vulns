@@ -1,0 +1,22 @@
+id: MNBSD-2020-1
+summary: USB network drivers out-of-bounds write via malicious device
+details: |
+  A missing length validation common to the smsc(4), muge(4) and cdceem(4) USB network drivers meant that a malicious USB device could write beyond the end of an allocated network packet buffer, potentially achieving kernel or user-space code execution.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:21.usb_net.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7459
+aliases:
+  - CVE-2020-7459
+modified: "2020-08-05T12:00:00Z"
+published: "2020-08-05T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2021-10
+summary: Out-of-bounds read in libfetch passive FTP response parsing
+details: |
+  When using passive mode FTP, libfetch used strtol() to parse the numbers of the server's response into address bytes without checking whether the line ended prematurely. This off-by-one in the loop condition could cause an out-of-bounds read, and a malicious FTP server could exploit it to leak sensitive information from the client's memory.
+affected:
+  - package:
+      name: libfetch
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.1.0"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-21:15.libfetch.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2021-36159
+aliases:
+  - CVE-2021-36159
+modified: "2021-08-24T12:00:00Z"
+published: "2021-08-24T12:00:00Z"

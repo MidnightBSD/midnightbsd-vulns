@@ -1,0 +1,22 @@
+id: MNBSD-2020-7
+summary: Use-after-free in IPv6 Hop-by-Hop options handling
+details: |
+  Due to improper mbuf handling in the kernel, a use-after-free bug could be triggered by sending IPv6 Hop-by-Hop options over the loopback interface.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:24.ipv6.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7462
+aliases:
+  - CVE-2020-7462
+modified: "2020-09-02T12:00:00Z"
+published: "2020-09-02T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2020-4
+summary: NULL pointer dereference in the Linux compatibility subsystem
+details: |
+  A NULL pointer dereference vulnerability in the Linux compatibility subsystem. On systems where the Linux binary compatibility layer is enabled and the protection against mapping low memory addresses has been disabled, a local user could trigger the flaw. Originally published as MIDNIGHTBSD-SA-20:02.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-24385
+  - type: WEB
+    url: https://www.midnightbsd.org/security/adv/MIDNIGHTBSD-SA-20:02.txt
+aliases:
+  - CVE-2020-24385
+modified: "2020-09-02T12:00:00Z"
+published: "2020-09-02T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2020-12
+summary: ICMPv6 read of freed kernel memory
+details: |
+  A remote host could trigger a read of freed kernel memory by sending malformed ICMPv6 error messages. This may trigger a kernel panic if the address had been unmapped.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:31.icmp6.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7469
+aliases:
+  - CVE-2020-7469
+modified: "2020-12-01T12:00:00Z"
+published: "2020-12-01T12:00:00Z"

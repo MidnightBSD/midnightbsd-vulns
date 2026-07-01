@@ -1,0 +1,22 @@
+id: MNBSD-2021-2
+summary: pam_login_access rules not applied correctly
+details: |
+  A regression in login.access(5) rule processing caused access-denial rules to fail to match, so the pam_login_access module could permit login access to users even when the system was configured to deny it.
+affected:
+  - package:
+      name: pam
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-21:03.pam_login_access.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-25580
+aliases:
+  - CVE-2020-25580
+modified: "2021-02-24T12:00:00Z"
+published: "2021-02-24T12:00:00Z"

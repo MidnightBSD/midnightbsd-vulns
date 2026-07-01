@@ -1,0 +1,22 @@
+id: MNBSD-2021-4
+summary: Virtual memory stale mapping information disclosure via copy-on-write
+details: |
+  A particular case of memory sharing was mishandled in the virtual memory system. When multiple descendant processes share a mapping that shadows memory of an ancestor process, the copy-on-write logic could fail to invalidate other mappings of the source page, leaving stale mappings even after the pages were reused for another purpose. An unprivileged local user could exploit this to read private data belonging to other processes or the kernel.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.7"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-21:08.vm.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2021-29626
+aliases:
+  - CVE-2021-29626
+modified: "2021-04-06T12:00:00Z"
+published: "2021-04-06T12:00:00Z"

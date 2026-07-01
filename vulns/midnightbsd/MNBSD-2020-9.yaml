@@ -1,0 +1,22 @@
+id: MNBSD-2020-9
+summary: Insufficient access controls on bhyve VMCS/VMCB structures
+details: |
+  AMD and Intel CPUs support hardware virtualization using specialized control structures (the Virtual Machine Control Structure on Intel and the Virtual Machine Control Block on AMD). Insufficient access controls allowed root users, including those running in a jail, to modify these data structures, enabling kernel code execution and escape from the guest or jail.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:28.bhyve_vmcs.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-24718
+aliases:
+  - CVE-2020-24718
+modified: "2020-09-15T12:00:00Z"
+published: "2020-09-15T12:00:00Z"

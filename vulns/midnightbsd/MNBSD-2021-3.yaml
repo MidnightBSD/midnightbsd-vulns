@@ -1,0 +1,22 @@
+id: MNBSD-2021-3
+summary: Xen grant-mapping error handling resource leak
+details: |
+  Improper error handling in the Xen grant-mapping operations of the blkfront/netfront paths could allow a malicious or buggy frontend driver to cause resource leaks in the domain running the corresponding backend driver, and to unmap memory incorrectly when errors occur.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "2.0.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-21:06.xen.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2021-26932
+aliases:
+  - CVE-2021-26932
+modified: "2021-02-24T12:00:00Z"
+published: "2021-02-24T12:00:00Z"

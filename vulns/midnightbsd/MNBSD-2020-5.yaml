@@ -1,0 +1,22 @@
+id: MNBSD-2020-5
+summary: Heap overflow in dhclient(8) DHCP option 119 parsing
+details: |
+  When parsing DHCP option 119 data, dhclient(8) computes the uncompressed domain search list length in order to allocate a buffer. The length computation failed to handle certain malformed input, resulting in a heap overflow when the uncompressed list was copied into an inadequately sized buffer. A malicious DHCP server, or an attacker able to spoof DHCP responses, could exploit this.
+affected:
+  - package:
+      name: dhclient
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:26.dhclient.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7461
+aliases:
+  - CVE-2020-7461
+modified: "2020-09-02T12:00:00Z"
+published: "2020-09-02T12:00:00Z"

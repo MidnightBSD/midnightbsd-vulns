@@ -1,0 +1,22 @@
+id: MNBSD-2020-2
+summary: compat32 sendmsg(2) TOCTOU allows privilege escalation
+details: |
+  When handling a 32-bit sendmsg(2) call, the compat32 subsystem copies the control message into kernel memory and adjusts the alignment of control message headers. The code contained a time-of-check-to-time-of-use (TOCTOU) flaw that allowed a malicious userspace program to modify control message headers after they were validated by the kernel, which could be leveraged for privilege escalation.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.2.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-20:23.sendmsg.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2020-7460
+aliases:
+  - CVE-2020-7460
+modified: "2020-08-05T12:00:00Z"
+published: "2020-08-05T12:00:00Z"
