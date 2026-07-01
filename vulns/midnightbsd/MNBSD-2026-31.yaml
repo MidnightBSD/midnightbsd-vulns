@@ -1,0 +1,22 @@
+id: MNBSD-2026-31
+summary: NULL pointer dereference when processing a delta CRL
+details: |
+  When a delta CRL containing a Delta CRL Indicator extension is processed, a NULL pointer dereference can occur if the required CRL Number extension is missing, triggering a crash (Denial of Service). Severity: Low (OpenSSL).
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.1.0"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-28388
+  - type: WEB
+    url: https://openssl-library.org/news/vulnerabilities/#CVE-2026-28388
+aliases:
+  - CVE-2026-28388
+modified: "2026-06-11T03:23:03Z"
+published: "2026-06-11T03:23:03Z"

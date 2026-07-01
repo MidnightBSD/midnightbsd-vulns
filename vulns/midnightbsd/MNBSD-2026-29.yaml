@@ -1,0 +1,22 @@
+id: MNBSD-2026-29
+summary: incorrect failure handling in RSA KEM RSASVE encapsulation leaks uninitialized memory
+details: |
+  Applications using RSASVE key encapsulation to establish a secret encryption key can send the contents of an uninitialized memory buffer to a malicious peer. The uninitialized buffer might contain sensitive data from a previous execution, leading to sensitive data leakage. Severity: Moderate (OpenSSL).
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.1.0"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-31790
+  - type: WEB
+    url: https://openssl-library.org/news/vulnerabilities/#CVE-2026-31790
+aliases:
+  - CVE-2026-31790
+modified: "2026-06-11T03:24:03Z"
+published: "2026-06-11T03:24:03Z"

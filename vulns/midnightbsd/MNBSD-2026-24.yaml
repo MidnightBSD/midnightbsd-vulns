@@ -1,0 +1,22 @@
+id: MNBSD-2026-24
+summary: Linuxulator does not set AT_SECURE for setuid/setgid binaries
+details: |
+  When constructing the Linux ELF auxiliary vector, the Linuxulator derived AT_SECURE from P_SUGID, which is not set until later in execve(2) and so could not reliably indicate a setuid/setgid binary. As a result AT_SECURE could be unset for setugid Linux binaries, defeating secure runtime linker mode. Fixed by using image_params.credential_setid. Ports FreeBSD-SA-26:30.linux.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-49413
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:30.linux.asc
+aliases:
+  - CVE-2026-49413
+modified: "2026-06-11T03:09:23Z"
+published: "2026-06-11T03:09:23Z"

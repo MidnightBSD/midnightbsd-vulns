@@ -1,0 +1,22 @@
+id: MNBSD-2026-23
+summary: use-after-free in IP/IPv6 multicast source filter handling
+details: |
+  IP_MSFILTER and IPV6_MSFILTER processing dropped the INP lock while holding pointers into mutable socket multicast membership data, creating a use-after-free race. Fixed by copying the source filter arrays before operating on socket multicast state. Ports the FreeBSD SA-26:29 ip6_multicast fix.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-49412
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:29.ip6_multicast.asc
+aliases:
+  - CVE-2026-49412
+modified: "2026-06-11T03:15:03Z"
+published: "2026-06-11T03:15:03Z"

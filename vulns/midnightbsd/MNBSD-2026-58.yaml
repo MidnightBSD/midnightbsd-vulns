@@ -1,0 +1,24 @@
+id: MNBSD-2026-58
+summary: Incorrect audit records for ptrace(PT_SC_REMOTE) syscalls (CVE-2026-49426)
+details: |
+  When auditing a system call executed via ptrace(PT_SC_REMOTE), the MidnightBSD kernel passed the return value of an internal setup function to AUDIT_SYSCALL_EXIT() instead of the actual result of the executed system call.
+
+  1. Return of wrong status code in audit (CWE-393, CVE-2026-49426) - committed audit records for remotely executed system calls that failed incorrectly indicated success.
+
+  An attacker able to debug a process could produce misleading audit trails, potentially undermining audit-based intrusion detection. Systems that do not use audit(4) are not affected.
+affected:
+  - package:
+      name: kernel/audit
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49426
+aliases:
+  - CVE-2026-49426
+modified: "2026-07-01T15:25:25Z"
+published: "2026-07-01T15:25:25Z"

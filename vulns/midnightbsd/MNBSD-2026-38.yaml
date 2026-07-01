@@ -1,0 +1,22 @@
+id: MNBSD-2026-38
+summary: out-of-bounds write in PKCS12_get_friendlyname() UTF-8 conversion
+details: |
+  Calling PKCS12_get_friendlyname() on a maliciously crafted PKCS#12 file with a BMPString (UTF-16BE) friendly name containing a non-ASCII BMP code point can trigger a one-byte write before the allocated buffer, causing memory corruption (Denial of Service). Severity: Low (OpenSSL).
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2025-69419
+  - type: WEB
+    url: https://openssl-library.org/news/vulnerabilities/#CVE-2025-69419
+aliases:
+  - CVE-2025-69419
+modified: "2026-06-11T03:19:11Z"
+published: "2026-06-11T03:19:11Z"

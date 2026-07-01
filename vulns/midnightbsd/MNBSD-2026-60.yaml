@@ -1,0 +1,24 @@
+id: MNBSD-2026-60
+summary: Use-after-free in the TCP RACK stack setsockopt(2) handler (CVE-2026-49422)
+details: |
+  The RACK TCP stack (tcp_rack.ko) setsockopt(2) handler drops the connection lock to copy option data from userspace, then reacquires it. After reacquiring, it verified that the stack had not been switched away but did not reload its pointer to the stack's per-connection control block.
+
+  1. Use-after-free in rack_set_sockopt() (CWE-416, CVE-2026-49422) - if userspace switches stacks twice during the window, the check succeeds but the saved pointer refers to freed memory.
+
+  An unprivileged local user may be able to escalate privileges. Only systems that have loaded tcp_rack.ko are affected; the module is not loaded by default.
+affected:
+  - package:
+      name: kernel/tcp_rack
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49422
+aliases:
+  - CVE-2026-49422
+modified: "2026-07-01T15:26:32Z"
+published: "2026-07-01T15:26:32Z"

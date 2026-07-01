@@ -1,0 +1,22 @@
+id: MNBSD-2026-18
+summary: stack-based buffer overflow in postprocess_termcap via a crafted termcap ko capability
+details: |
+  The ko capability processing loop in postprocess_termcap() copied termcap string values into a fixed buf2[MAX_TERMINFO_LENGTH] stack buffer without bounds checking, allowing a stack-based buffer overflow via a crafted termcap entry. Fixed by backporting the buffer-limit check from ncurses 6.5-20250329.
+affected:
+  - package:
+      name: ncurses
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2025-6141
+  - type: WEB
+    url: https://invisible-island.net/ncurses/
+aliases:
+  - CVE-2025-6141
+modified: "2026-06-11T03:10:02Z"
+published: "2026-06-11T03:10:02Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2026-36
+summary: heap out-of-bounds write in BIO_f_linebuffer on short writes
+details: |
+  Writing large, newline-free data into a BIO chain using the line-buffering filter, where the next BIO performs short writes, can trigger a heap-based out-of-bounds write and memory corruption, typically resulting in a crash (Denial of Service). Severity: Low (OpenSSL).
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2025-68160
+  - type: WEB
+    url: https://openssl-library.org/news/vulnerabilities/#CVE-2025-68160
+aliases:
+  - CVE-2025-68160
+modified: "2026-06-11T03:20:07Z"
+published: "2026-06-11T03:20:07Z"

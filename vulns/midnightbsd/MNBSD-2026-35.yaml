@@ -1,0 +1,22 @@
+id: MNBSD-2026-35
+summary: stack buffer overflow in CMS AuthEnvelopedData parsing
+details: |
+  Parsing a CMS AuthEnvelopedData message with maliciously crafted AEAD parameters can trigger a stack buffer overflow, which may lead to a crash (Denial of Service) or potentially remote code execution. Severity: High (OpenSSL).
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2025-15467
+  - type: WEB
+    url: https://openssl-library.org/news/vulnerabilities/#CVE-2025-15467
+aliases:
+  - CVE-2025-15467
+modified: "2026-06-11T03:20:51Z"
+published: "2026-06-11T03:20:51Z"

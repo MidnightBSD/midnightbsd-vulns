@@ -1,0 +1,30 @@
+id: MNBSD-2026-59
+summary: Use-after-free in POSIX largepage shared memory objects (CVE-2026-49427, CVE-2026-49428)
+details: |
+  Multiple use-after-free issues affect POSIX largepage shared memory objects (shm_create_largepage(3)) in the MidnightBSD kernel.
+
+  1. sendfile(2) SF_NOCACHE frees mapped largepage pages (CWE-416, CVE-2026-49427) - largepage pages were not explicitly wired, so transmitting such an object with SF_NOCACHE freed pages still referenced by existing mappings.
+  2. open(2) O_TRUNC frees largepage memory (CWE-416, CVE-2026-49428) - the O_TRUNC path bypassed the largepage dispatch that rejects truncation, incorrectly freeing memory.
+
+  An unprivileged local user can access freed kernel memory, which may be leveraged for privilege escalation.
+
+  The fspacectl(2) portion of CVE-2026-49428 does not apply to MidnightBSD, which does not implement fspacectl(2) for shm objects.
+affected:
+  - package:
+      name: kernel/posixshm
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49427
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49428
+aliases:
+  - CVE-2026-49427
+  - CVE-2026-49428
+modified: "2026-07-01T15:25:57Z"
+published: "2026-07-01T15:25:57Z"

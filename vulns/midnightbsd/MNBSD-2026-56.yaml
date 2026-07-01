@@ -1,0 +1,26 @@
+id: MNBSD-2026-56
+summary: Multiple Critical Security Vulnerabilities in msearch
+details: |
+  Multiple critical security vulnerabilities have been discovered in the msearch file search utility and its library libmsearch in MidnightBSD. These vulnerabilities affect the file indexing and searching functionality and could allow attackers to execute arbitrary code, access unauthorized files, or cause denial of service.
+
+  1. SQL Injection (CWE-89) - msearch_index_exists() used undefined %Q format specifier in SQLite queries
+  2. Format String Injection (CWE-134) - msearch_search_bind() used snprintf() with user input in format string
+  3. Path Traversal (CWE-22, CWE-367) - msearch_index_path_file() allowed symlink bypass of directory checks
+  4. TOCTOU Race Condition (CWE-367) - msearch_index_file() had race between lstat() and file operations
+  5. Hardcoded Library Path (CWE-269) - msearch_fulltext_open() loaded extension from hardcoded path
+
+  Arbitrary SQL query execution, arbitrary code execution, unauthorized file access, privilege escalation, or denial of service.
+affected:
+  - package:
+      name: msearch
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "2.0"
+          - fixed: "4.1.0"
+references:
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/security/advisories/GHSA-j867-6h3w-fq7q
+modified: "2026-06-26T02:36:51Z"
+published: "2026-06-26T02:36:51Z"

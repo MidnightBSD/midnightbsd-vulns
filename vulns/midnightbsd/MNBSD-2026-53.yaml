@@ -1,0 +1,22 @@
+id: MNBSD-2026-53
+summary: possible cache poisoning attack while following delegation
+details: |
+  A flaw while following delegations enables a possible cache poisoning attack. Reported by TaoFei Guo (Peking University), Yang Luo and JianJun Chen (Tsinghua University).
+affected:
+  - package:
+      name: unbound
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-42960
+  - type: WEB
+    url: https://nlnetlabs.nl/projects/unbound/security-advisories/
+aliases:
+  - CVE-2026-42960
+modified: "2026-06-11T03:12:05Z"
+published: "2026-06-11T03:12:05Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2026-44
+summary: out-of-bounds memory access with invalid low-level GF(2^m) elliptic curve parameters
+details: |
+  Use of the low-level GF(2^m) elliptic curve APIs with untrusted explicit values for the field polynomial can lead to out-of-bounds memory reads or writes. Applications working with exotic explicit binary curve parameters may terminate abruptly; remote code execution cannot easily be ruled out. Severity: Low (OpenSSL).
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2024-9143
+  - type: WEB
+    url: https://openssl-library.org/news/vulnerabilities/#CVE-2024-9143
+aliases:
+  - CVE-2024-9143
+modified: "2026-06-11T03:16:38Z"
+published: "2026-06-11T03:16:38Z"

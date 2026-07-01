@@ -1,0 +1,24 @@
+id: MNBSD-2026-62
+summary: Buffer overflow in the libalias RTSP handler (CVE-2026-49420)
+details: |
+  The RTSP handler in libalias (alias_smedia) rewrote outgoing NAT packets into a fixed-length 2048-byte stack buffer without checking whether the rewritten data fit in the buffer or back in the original packet.
+
+  1. Stack buffer overflow in alias_rtsp_out() (CWE-121/CWE-787, CVE-2026-49420) - crafted RTSP traffic (source or destination port 554 or 7070) undergoing outbound NAT translation could overflow the stack buffer.
+
+  A host sending crafted RTSP traffic from inside a NAT gateway using libalias could achieve remote code execution in the kernel (ipfw(4) NAT via alias_smedia.ko) or in the natd(8) process, which typically runs as root (via libalias_smedia.so).
+affected:
+  - package:
+      name: libalias
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49420
+aliases:
+  - CVE-2026-49420
+modified: "2026-07-01T15:27:53Z"
+published: "2026-07-01T15:27:53Z"

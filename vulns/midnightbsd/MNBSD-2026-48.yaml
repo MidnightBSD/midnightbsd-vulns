@@ -1,0 +1,22 @@
+id: MNBSD-2026-48
+summary: packet of death with DNSCrypt
+details: |
+  A crafted DNSCrypt packet can crash unbound (packet-of-death Denial of Service). Reported by Andrew Griffiths (calif.io).
+affected:
+  - package:
+      name: unbound
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-32792
+  - type: WEB
+    url: https://nlnetlabs.nl/projects/unbound/security-advisories/
+aliases:
+  - CVE-2026-32792
+modified: "2026-06-11T03:14:06Z"
+published: "2026-06-11T03:14:06Z"

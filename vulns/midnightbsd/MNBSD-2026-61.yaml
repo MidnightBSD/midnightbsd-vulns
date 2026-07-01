@@ -1,0 +1,24 @@
+id: MNBSD-2026-61
+summary: unlinkat(2)/funlinkat(2) ignore the AT_RESOLVE_BENEATH flag (CVE-2026-49421)
+details: |
+  kern_funlinkat_ex() validated the AT_RESOLVE_BENEATH flag but then invoked the underlying path lookup with a hardcoded flag argument, silently dropping the flag so that path resolution was not actually restricted.
+
+  1. AT_RESOLVE_BENEATH containment bypass (CWE-22, CVE-2026-49421) - a caller relying on AT_RESOLVE_BENEATH with unlinkat(2)/funlinkat(2) for path containment could resolve and delete files outside the intended directory tree.
+
+  Applications that use AT_RESOLVE_BENEATH with unlinkat(2)/funlinkat(2) to confine path resolution on untrusted paths lose that containment guarantee.
+affected:
+  - package:
+      name: kernel/vfs
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49421
+aliases:
+  - CVE-2026-49421
+modified: "2026-07-01T15:27:08Z"
+published: "2026-07-01T15:27:08Z"

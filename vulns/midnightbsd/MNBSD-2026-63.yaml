@@ -1,0 +1,34 @@
+id: MNBSD-2026-63
+summary: Multiple vulnerabilities in OpenZFS (CVE-2026-49429, CVE-2026-49430, CVE-2026-49431)
+details: |
+  Multiple vulnerabilities affect the OpenZFS implementation shipped with MidnightBSD (OpenZFS 2.1.15). ZFS delegation allows unprivileged users to perform specific administrative operations per dataset.
+
+  1. Kernel heap overflow via ZFS_IOC_USERSPACE_MANY (CWE-190/CWE-787, CVE-2026-49429) - the ioctl truncated a 64-bit output buffer size to a 32-bit integer for the kernel allocation but used the original 64-bit size when writing records. Triggerable by a user with the "userused" delegated permission.
+  2. Kernel memory corruption via ZFS_IOC_RECV_NEW heal path (CWE-190/CWE-787, CVE-2026-49430) - a crafted receive stream in heal mode could trigger an oversized allocation/byteswap. Triggerable by a user with the "receive" delegated permission.
+  3. Improper privilege check on ZFS_IOC_SET_PROP (CWE-269, CVE-2026-49431) - any local user could set the internal "$hasrecvd" metadata flag on datasets.
+
+  A local user with the appropriate delegated permission may escalate privileges via kernel heap overflow or memory corruption.
+
+  The FreeBSD patch targets OpenZFS 2.2.x and does not apply to MidnightBSD's OpenZFS 2.1.15; the three fixes were hand-ported. OpenZFS 2.1 is end-of-life upstream; a future update to a supported OpenZFS release is recommended.
+affected:
+  - package:
+      name: openzfs
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49429
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49430
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-49431
+aliases:
+  - CVE-2026-49429
+  - CVE-2026-49430
+  - CVE-2026-49431
+modified: "2026-07-01T15:28:32Z"
+published: "2026-07-01T15:28:32Z"

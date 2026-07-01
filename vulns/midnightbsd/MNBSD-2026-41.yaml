@@ -1,0 +1,22 @@
+id: MNBSD-2026-41
+summary: missing ASN1_TYPE validation in PKCS#12 parsing
+details: |
+  An invalid or NULL pointer dereference can occur in an application processing a malformed PKCS#12 file, resulting in a Denial of Service. Severity: Low (OpenSSL).
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-22795
+  - type: WEB
+    url: https://openssl-library.org/news/vulnerabilities/#CVE-2026-22795
+aliases:
+  - CVE-2026-22795
+modified: "2026-06-11T03:17:55Z"
+published: "2026-06-11T03:17:55Z"

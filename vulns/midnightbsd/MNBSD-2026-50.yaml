@@ -1,0 +1,22 @@
+id: MNBSD-2026-50
+summary: parsing a long list of incoming EDNS options degrades performance
+details: |
+  Parsing a long list of incoming EDNS options degrades performance, enabling a Denial of Service. Reported by GitHub user N0zoM1z0 and Qifan Zhang, Palo Alto Networks.
+affected:
+  - package:
+      name: unbound
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-41292
+  - type: WEB
+    url: https://nlnetlabs.nl/projects/unbound/security-advisories/
+aliases:
+  - CVE-2026-41292
+modified: "2026-06-11T03:13:29Z"
+published: "2026-06-11T03:13:29Z"

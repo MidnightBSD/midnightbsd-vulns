@@ -1,0 +1,22 @@
+id: MNBSD-2026-46
+summary: heap overflow and crash with multiple nsid, cookie, padding EDNS options
+details: |
+  Processing messages with multiple nsid, cookie, and padding EDNS options can cause a heap overflow and crash. Reported by Qifan Zhang, Palo Alto Networks.
+affected:
+  - package:
+      name: unbound
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-42944
+  - type: WEB
+    url: https://nlnetlabs.nl/projects/unbound/security-advisories/
+aliases:
+  - CVE-2026-42944
+modified: "2026-06-11T03:15:30Z"
+published: "2026-06-11T03:15:30Z"

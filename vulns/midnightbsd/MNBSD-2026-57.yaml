@@ -1,0 +1,28 @@
+id: MNBSD-2026-57
+summary: Buffer overflows in iconv(3) encoding modules (CVE-2026-58081, CVE-2026-58082)
+details: |
+  Multiple buffer overflows exist in the citrus iconv(3) character-set conversion modules in MidnightBSD. Applications that use iconv(3) to convert untrusted text to or from an affected encoding may be vulnerable.
+
+  1. Missing output-buffer bounds checks in HZ, UTF-7, VIQR and ZW modules (CWE-787, CVE-2026-58081) - these encoders rewrote converted characters without checking the size of the caller-supplied output buffer.
+  2. Stack buffer overflow in the ISO-2022 module (CWE-121, CVE-2026-58082) - the encoder used a stack buffer sized to MB_LEN_MAX (6 bytes), but some ISO-2022 variants require up to 10 bytes per character, allowing an out-of-bounds write of up to four bytes.
+
+  An application converting untrusted input through an affected encoding can be made to write past a heap or stack buffer, leading to memory corruption.
+affected:
+  - package:
+      name: libc/iconv
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58081
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58082
+aliases:
+  - CVE-2026-58081
+  - CVE-2026-58082
+modified: "2026-07-01T15:24:43Z"
+published: "2026-07-01T15:24:43Z"

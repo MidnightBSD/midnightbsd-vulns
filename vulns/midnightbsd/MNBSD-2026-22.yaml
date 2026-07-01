@@ -1,0 +1,20 @@
+id: MNBSD-2026-22
+summary: sigqueue(2) is not restricted in capability mode
+details: |
+  A process in Capsicum capability mode could use sigqueue(2) to send signals to processes other than itself, unlike the existing kill(2) restriction. This allowed a sandboxed process to signal arbitrary processes. Fixed by rejecting sigqueue(2) targeting other PIDs with ECAPMODE before normal signal permission checks.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-45259
+aliases:
+  - CVE-2026-45259
+modified: "2026-06-11T03:25:43Z"
+published: "2026-06-11T03:25:43Z"

@@ -1,0 +1,20 @@
+id: MNBSD-2026-21
+summary: KTLS receive path may overwrite file-backed memory via shared mbufs
+details: |
+  The KTLS receive path could decrypt records in place into detached records that contained non-anonymous M_EXTPG pages or sendfile EXT_SFBUF mbufs. Those buffers may reference file-backed memory that must not be modified by the receive path, leading to memory/data corruption. Fixed by rejecting shared mbufs on receive decrypt.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-45257
+aliases:
+  - CVE-2026-45257
+modified: "2026-06-11T03:26:11Z"
+published: "2026-06-11T03:26:11Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2026-25
+summary: ASLR bypass for setuid executables via procctl(2)
+details: |
+  The ELF image activator cleared per-process ASLR preference flags for setuid binaries only after computing the PIE base address. An unprivileged user could call procctl(PROC_ASLR_CTL, PROC_ASLR_FORCE_DISABLE) before execve(2) to disable ASLR for a setuid PIE binary, easing exploitation of memory-corruption bugs in that binary. Fixed by clearing the credential setid ASLR flags before the load base is chosen. Ports FreeBSD-SA-26:32.elf.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2026-49414
+  - type: WEB
+    url: https://security.FreeBSD.org/advisories/FreeBSD-SA-26:32.elf.asc
+aliases:
+  - CVE-2026-49414
+modified: "2026-06-11T03:08:46Z"
+published: "2026-06-11T03:08:46Z"

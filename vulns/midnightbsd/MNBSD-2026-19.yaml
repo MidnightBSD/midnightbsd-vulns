@@ -1,0 +1,22 @@
+id: MNBSD-2026-19
+summary: C stack overflow in lua_resume via a maliciously crafted script
+details: |
+  lua_resume() did not check for C stack overflow before resuming a coroutine, allowing a stack overflow to be triggered by a maliciously crafted Lua script. Fixed by updating contrib/lua to 5.4.7, which adds the missing C stack check in ldo.c.
+affected:
+  - package:
+      name: lua
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2021-43519
+  - type: WEB
+    url: https://www.lua.org/bugs.html
+aliases:
+  - CVE-2021-43519
+modified: "2026-06-11T03:26:55Z"
+published: "2026-06-11T03:26:55Z"

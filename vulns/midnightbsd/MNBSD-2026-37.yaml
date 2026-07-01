@@ -1,0 +1,22 @@
+id: MNBSD-2026-37
+summary: unauthenticated/unencrypted trailing bytes with low-level OCB function calls
+details: |
+  When using the low-level OCB API directly with AES-NI or other hardware-accelerated code paths, inputs whose length is not a multiple of 16 bytes can leave the final partial block unencrypted and unauthenticated, exposing the trailing 1-15 bytes in cleartext and outside the authentication tag. Severity: Low (OpenSSL).
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.6"
+references:
+  - type: WEB
+    url: https://nvd.nist.gov/vuln/detail/CVE-2025-69418
+  - type: WEB
+    url: https://openssl-library.org/news/vulnerabilities/#CVE-2025-69418
+aliases:
+  - CVE-2025-69418
+modified: "2026-06-11T03:19:41Z"
+published: "2026-06-11T03:19:41Z"
