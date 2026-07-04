@@ -1,0 +1,22 @@
+id: MNBSD-2008-10
+summary: arc4random insufficient entropy at system startup
+details: |
+  The arc4random(9) random number framework did not obtain enough entropy at boot, so system services relying on it received predictable random numbers; GEOM classes initialized at startup remained affected. Users were advised to update to RELENG_0_2 (MidnightBSD 0.2.1-p3). This corresponds to FreeBSD-SA-08:11.arc4random.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1p3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-08:11.arc4random.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2008-5162
+aliases:
+  - CVE-2008-5162
+modified: "2008-11-24T12:00:00Z"
+published: "2008-11-24T12:00:00Z"

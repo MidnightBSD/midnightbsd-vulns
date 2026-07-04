@@ -1,0 +1,22 @@
+id: MNBSD-2013-4
+summary: Insufficient credential checks in network interface ioctl handling (ifioctl)
+details: |
+  The IPv6 and ATM network-layer ioctl handlers pass unrecognized requests to the link layer, but network interface drivers assume SIOCSIFADDR, SIOCSIFBRDADDR, SIOCSIFDSTADDR and SIOCSIFNETMASK were already validated and therefore skip input validation and credential checks. An unprivileged user can trigger link-layer actions (marking an interface up, resetting hardware) or panic the kernel via a crafted address structure. Patch obtained from FreeBSD.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p4"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-13:12.ifioctl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2013-5691
+aliases:
+  - CVE-2013-5691
+modified: "2013-09-10T12:00:00Z"
+published: "2013-09-10T12:00:00Z"

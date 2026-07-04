@@ -1,0 +1,22 @@
+id: MNBSD-2018-2
+summary: ICMP buffer underwrite fix
+details: |
+  The icmp_error routine allocates either an mbuf or a cluster depending on the size of the data quoted in the ICMP reply, but the calculation failed to account for additional padding on 64-bit platforms when using a non-default value of the net.inet.icmp.quotelen sysctl. A remote unauthenticated attacker can trigger a buffer underwrite when the system constructs an ICMP reply, causing the target to crash.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.1.0"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-EN-18:13.icmp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2018-17156
+aliases:
+  - CVE-2018-17156
+modified: "2018-11-30T12:00:00Z"
+published: "2018-11-30T12:00:00Z"

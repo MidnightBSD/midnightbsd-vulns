@@ -1,0 +1,22 @@
+id: MNBSD-2015-1
+summary: BIND DNSSEC managed-keys uninitialized variable crash
+details: |
+  BIND servers configured to perform DNSSEC validation using managed keys (implicit with dnssec-validation auto or dnssec-lookaside auto) could exhibit unpredictable behavior due to the use of an improperly initialized variable. A remote attacker could exploit this to crash named, causing a denial of service.
+affected:
+  - package:
+      name: bind
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-15:03.bind.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-1349
+aliases:
+  - CVE-2015-1349
+modified: "2015-02-25T12:00:00Z"
+published: "2015-02-25T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2008-11
+summary: Insufficiently initialized bluetooth and netgraph network protocol handlers
+details: |
+  Bluetooth and netgraph socket protocol handlers were not initialized properly, leaving function pointers uninitialized. A local user could exploit this to cause a denial of service or potentially execute arbitrary code with kernel privileges. The fix was available in RELENG_0_2, RELENG_0_1, and current. This corresponds to FreeBSD-SA-08:13.protosw.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-08:13.protosw.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2008-5736
+aliases:
+  - CVE-2008-5736
+modified: "2008-12-31T12:00:00Z"
+published: "2008-12-31T12:00:00Z"

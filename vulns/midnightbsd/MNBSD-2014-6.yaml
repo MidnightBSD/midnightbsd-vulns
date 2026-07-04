@@ -1,0 +1,22 @@
+id: MNBSD-2014-6
+summary: Sendmail fails to set close-on-exec on file descriptors
+details: |
+  Sendmail failed to properly set the close-on-exec flag for open file descriptors. A local user could exploit the leaked descriptors passed to mail filters or delivery programs, potentially interfering with connections or gaining unintended access.
+affected:
+  - package:
+      name: sendmail
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p11"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:11.sendmail.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3956
+aliases:
+  - CVE-2014-3956
+modified: "2014-06-04T12:00:00Z"
+published: "2014-06-04T12:00:00Z"

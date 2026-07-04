@@ -1,0 +1,22 @@
+id: MNBSD-2014-18
+summary: sshd libpthread symbol shadowing denial of service
+details: |
+  Due to incorrect library ordering while linking sshd(8), symbols in the C library that are shadowed by the POSIX thread library may not be resolved correctly. This could cause a denial of service against connecting clients.
+affected:
+  - package:
+      name: openssh
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:24.sshd.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-8475
+aliases:
+  - CVE-2014-8475
+modified: "2014-11-06T12:00:00Z"
+published: "2014-11-06T12:00:00Z"

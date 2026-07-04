@@ -1,0 +1,22 @@
+id: MNBSD-2014-15
+summary: rtsold stack buffer overflow via crafted router advertisement
+details: |
+  Due to a missing length check in the code handling DNS parameters, a malformed router advertisement message could result in a stack buffer overflow in rtsold(8). A remote attacker on the local network could exploit this to crash the daemon or potentially execute code.
+affected:
+  - package:
+      name: rtsold
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:20.rtsold.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3954
+aliases:
+  - CVE-2014-3954
+modified: "2014-10-21T12:00:00Z"
+published: "2014-10-21T12:00:00Z"

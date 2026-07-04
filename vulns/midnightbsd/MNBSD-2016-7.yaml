@@ -1,0 +1,22 @@
+id: MNBSD-2016-7
+summary: Incorrect argument validation in sysarch(2) LDT handling
+details: |
+  A specific combination of sysarch(2) arguments requesting removal of a set of LDT descriptors triggered a bounds check that misused a signed intermediate value. This allowed unbounded zeroing of the process LDT and adjacent memory from usermode, which could panic the kernel and cause a local denial of service. Only the amd64 architecture is affected. Patch obtained from FreeBSD and applied in the 0.7.6 release.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:15.sysarch.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-1885
+aliases:
+  - CVE-2016-1885
+modified: "2016-03-17T12:00:00Z"
+published: "2016-03-17T12:00:00Z"

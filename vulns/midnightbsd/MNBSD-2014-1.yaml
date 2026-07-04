@@ -1,0 +1,22 @@
+id: MNBSD-2014-1
+summary: Stack buffer overflow in bsnmpd GETBULK handling
+details: |
+  bsnmpd(1) contained a stack-based buffer overflow when processing certain SNMP GETBULK PDU requests. A malicious client able to reach the daemon could send crafted queries to crash bsnmpd or potentially execute arbitrary code.
+affected:
+  - package:
+      name: bsnmpd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:01.bsnmpd.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-1452
+aliases:
+  - CVE-2014-1452
+modified: "2014-01-14T12:00:00Z"
+published: "2014-01-14T12:00:00Z"

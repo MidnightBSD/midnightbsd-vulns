@@ -1,0 +1,22 @@
+id: MNBSD-2014-10
+summary: TCP SYN handling connection teardown (sequence check bypass)
+details: |
+  When a segment with the SYN flag arrived for an already existing connection, the TCP stack tore down the connection, bypassing the check that the segment's sequence number was within the expected window. A remote attacker could exploit this to reset connections, causing a denial of service.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p15"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:19.tcp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2004-0230
+aliases:
+  - CVE-2004-0230
+modified: "2014-09-16T12:00:00Z"
+published: "2014-09-16T12:00:00Z"

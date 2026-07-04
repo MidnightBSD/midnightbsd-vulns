@@ -1,0 +1,22 @@
+id: MNBSD-2010-1
+summary: pseudofs/procfs locking flaw allowing local code execution or system crash
+details: |
+  All pseudofs-based filesystems, including procfs and linprocfs, contained a locking/use-after-free issue in 0.3-PRERELEASE and 0.4-CURRENT that could be exploited by a local user to execute code with kernel privileges or, at minimum, crash the system. Administrators unable to update the kernel were advised to disable proc and linproc mounts. MidnightBSD 0.2.1 was not believed to be affected because the relevant code differed significantly.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-10:09.pseudofs.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2010-4210
+aliases:
+  - CVE-2010-4210
+modified: "2010-10-12T12:00:00Z"
+published: "2010-10-12T12:00:00Z"

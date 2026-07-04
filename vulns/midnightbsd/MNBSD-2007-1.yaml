@@ -1,0 +1,22 @@
+id: MNBSD-2007-1
+summary: IPv6 Type 0 routing headers allow traffic amplification
+details: |
+  IPv6 Type 0 routing headers (RH0) could cause packets to traverse the same link multiple times, enabling network amplification and denial-of-service attacks. The patch (which ignores RH0 by default) was applied to CURRENT and STABLE. This corresponds to FreeBSD-SA-07:03.ipv6.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-07:03.ipv6.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2007-2242
+aliases:
+  - CVE-2007-2242
+modified: "2007-05-02T12:00:00Z"
+published: "2007-05-02T12:00:00Z"

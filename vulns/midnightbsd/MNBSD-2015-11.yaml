@@ -1,0 +1,25 @@
+id: MNBSD-2015-11
+summary: Multiple sshd privileged monitor vulnerabilities
+details: |
+  The privileged monitor process of sshd(8) contained multiple flaws: the username of an already-authenticated user could be overwritten by the unprivileged child process, and a use-after-free in the monitor could be deterministically triggered by a compromised unprivileged child. A related use-after-free in the session multiplexing code could result in unintended termination of the connection. These issues could aid an attacker who has compromised the unprivileged child in circumventing authentication controls.
+affected:
+  - package:
+      name: openssh
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.6.7"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-15:22.openssh.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-6563
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-6564
+aliases:
+  - CVE-2015-6563
+  - CVE-2015-6564
+modified: "2015-08-25T12:00:00Z"
+published: "2015-08-25T12:00:00Z"

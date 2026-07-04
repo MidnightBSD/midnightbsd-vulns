@@ -1,0 +1,26 @@
+id: MNBSD-2016-3
+summary: Multiple OpenSSL vulnerabilities (RSA PSS NULL deref, X509_ATTRIBUTE leak, PSK identity hint)
+details: |
+  OpenSSL update addressing a NULL pointer dereference crash when verifying an RSA PSS signature with an absent mask generation function parameter, a memory leak when parsing a malformed X509_ATTRIBUTE structure, and incorrect updating of PSK identity hints in the parent SSL_CTX for multi-threaded clients. These could cause denial of service or memory corruption. Fixed in the 0.7.3 release.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.3"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-3194
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-3195
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-3196
+aliases:
+  - CVE-2015-3194
+  - CVE-2015-3195
+  - CVE-2015-3196
+modified: "2016-01-14T12:00:00Z"
+published: "2016-01-14T12:00:00Z"

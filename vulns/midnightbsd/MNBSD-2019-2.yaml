@@ -1,0 +1,22 @@
+id: MNBSD-2019-2
+summary: Buffer overflows in the telnet client
+details: |
+  A stack-based overflow is present in the handling of environment variables when connecting via the telnet(1) client to remote telnet servers. The overflow may be triggered when connecting to a malicious server or by an attacker in the network path, and specially crafted TELNET command sequences may cause execution of arbitrary code with the privileges of the user invoking telnet. Only the client is affected; inbound sessions to telnetd are not.
+affected:
+  - package:
+      name: telnet
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.1.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-19:12.telnet.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2019-0053
+aliases:
+  - CVE-2019-0053
+modified: "2019-07-24T12:00:00Z"
+published: "2019-07-24T12:00:00Z"

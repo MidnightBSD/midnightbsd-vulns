@@ -1,0 +1,22 @@
+id: MNBSD-2009-1
+summary: OpenSSL improperly accepts invalid certificate signatures as valid
+details: |
+  OpenSSL did not properly check the return value from EVP_VerifyFinal, so applications using OpenSSL could interpret a malformed DSA/ECDSA signature or certificate as valid. The fix was applied to MidnightBSD 0.2.1 and 0.3-CURRENT. This corresponds to FreeBSD-SA-09:03.openssl.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-09:02.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2008-5077
+aliases:
+  - CVE-2008-5077
+modified: "2009-01-10T12:00:00Z"
+published: "2009-01-10T12:00:00Z"

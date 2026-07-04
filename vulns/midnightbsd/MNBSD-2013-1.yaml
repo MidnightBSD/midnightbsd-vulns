@@ -1,0 +1,22 @@
+id: MNBSD-2013-1
+summary: NFS server uses client-supplied credentials for anonymous export mapping
+details: |
+  When -network or -host restrictions are configured on an NFS export, the kernel incorrectly uses client-supplied credentials instead of the credential configured in exports(5) when filling out the anonymous credential. A remote client may therefore supply privileged credentials (such as root) when accessing files under the share, bypassing normal access checks. Patch obtained from FreeBSD.
+affected:
+  - package:
+      name: nfsserver
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-13:08.nfsserver.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2013-4851
+aliases:
+  - CVE-2013-4851
+modified: "2013-07-28T12:00:00Z"
+published: "2013-07-28T12:00:00Z"

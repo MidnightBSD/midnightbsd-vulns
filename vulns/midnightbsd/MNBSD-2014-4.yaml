@@ -1,0 +1,22 @@
+id: MNBSD-2014-4
+summary: TCP reassembly denial of service and memory disclosure
+details: |
+  A TCP reassembly bug could result in a denial of service against the system, and it may also be possible to obtain portions of kernel memory. A remote attacker could exploit this by sending crafted TCP segments.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p10"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:08.tcp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3000
+aliases:
+  - CVE-2014-3000
+modified: "2014-04-30T12:00:00Z"
+published: "2014-04-30T12:00:00Z"

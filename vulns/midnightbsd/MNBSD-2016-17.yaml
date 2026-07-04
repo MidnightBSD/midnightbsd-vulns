@@ -1,0 +1,22 @@
+id: MNBSD-2016-17
+summary: Buffer overflow in link_ntoa(3)
+details: |
+  Improper bounds checking of the output buffer in the link_ntoa() function in linkaddr.c of libc could allow reading or writing beyond the buffer when given crafted input. Exploitable applications are considered very unlikely to exist in practice. Fixed in the 0.8.5 release.
+affected:
+  - package:
+      name: libc
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.8.5"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:37.libc.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-6559
+aliases:
+  - CVE-2016-6559
+modified: "2016-12-13T12:00:00Z"
+published: "2016-12-13T12:00:00Z"

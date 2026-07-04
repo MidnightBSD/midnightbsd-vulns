@@ -1,0 +1,31 @@
+id: MNBSD-2014-7
+summary: OpenSSL DTLS buffer overrun and MITM keying vulnerabilities
+details: |
+  Multiple OpenSSL vulnerabilities were fixed: an invalid DTLS fragment could cause a buffer overrun, an invalid DTLS handshake could cause unnecessary recursion, a crafted handshake could force use of weak keying material (CCS injection man-in-the-middle), and crafted packets could cause a NULL pointer dereference in TLS client code with anonymous ECDH enabled. Impacts include man-in-the-middle attacks and denial of service.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p12"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:14.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-0195
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-0221
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-0224
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3470
+aliases:
+  - CVE-2014-0195
+  - CVE-2014-0221
+  - CVE-2014-0224
+  - CVE-2014-3470
+modified: "2014-06-05T12:00:00Z"
+published: "2014-06-05T12:00:00Z"

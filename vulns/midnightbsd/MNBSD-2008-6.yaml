@@ -1,0 +1,22 @@
+id: MNBSD-2008-6
+summary: BIND DNS cache poisoning (Kaminsky) fixed by updating to 9.4.1p1
+details: |
+  BIND was updated to 9.4.1p1 to address the widely reported DNS cache poisoning vulnerability (the Kaminsky attack) affecting most DNS software, which allowed remote attackers to spoof DNS responses. Users were recommended to update to the latest version in src on RELENG_0_2 or CURRENT, or via mports. This corresponds to FreeBSD-SA-08:06.bind.
+affected:
+  - package:
+      name: bind
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-08:06.bind.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2008-1447
+aliases:
+  - CVE-2008-1447
+modified: "2008-07-11T12:00:00Z"
+published: "2008-07-11T12:00:00Z"

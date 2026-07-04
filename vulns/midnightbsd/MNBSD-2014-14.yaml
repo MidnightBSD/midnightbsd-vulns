@@ -1,0 +1,22 @@
+id: MNBSD-2014-14
+summary: routed remote routing table disruption
+details: |
+  The input path in routed(8) accepted queries from any source and attempted to answer them, while the output path assumed the response destination was on a directly connected network. An attacker sending traffic from outside the network could disrupt routing, causing a denial of service.
+affected:
+  - package:
+      name: routed
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:21.routed.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3955
+aliases:
+  - CVE-2014-3955
+modified: "2014-10-21T12:00:00Z"
+published: "2014-10-21T12:00:00Z"

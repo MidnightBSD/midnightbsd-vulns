@@ -1,0 +1,22 @@
+id: MNBSD-2008-4
+summary: OpenSSH X11 forwarding session hijack
+details: |
+  OpenSSH X11 forwarding could bind the forwarding port improperly, allowing a local user to hijack X11 forwarding sessions. OpenSSH was updated to 5.0p1 in CURRENT, and a patch plus a config file fix was committed to RELENG_0_1. This corresponds to FreeBSD-SA-08:05.openssh.
+affected:
+  - package:
+      name: openssh
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-08:05.openssh.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2008-1483
+aliases:
+  - CVE-2008-1483
+modified: "2008-04-17T12:00:00Z"
+published: "2008-04-17T12:00:00Z"

@@ -1,0 +1,23 @@
+id: MNBSD-2016-2
+summary: OpenSSH client roaming information leak and buffer overflow
+details: |
+  The experimental OpenSSH client roaming support could leak private key material via an information disclosure and contained a client-side buffer overflow, both triggerable by a malicious or compromised server. Roaming was disabled to mitigate the issue. Fixed in the 0.7.3 release.
+affected:
+  - package:
+      name: openssh
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.3"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-0777
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-0778
+aliases:
+  - CVE-2016-0777
+  - CVE-2016-0778
+modified: "2016-01-14T12:00:00Z"
+published: "2016-01-14T12:00:00Z"

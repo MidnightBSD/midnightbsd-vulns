@@ -1,0 +1,22 @@
+id: MNBSD-2014-17
+summary: Kernel memory disclosure via getlogin/setlogin
+details: |
+  getlogin(2) could leak kernel memory via a buffer that is copied to userland without being cleared. A local user could read uninitialized kernel stack memory, potentially exposing sensitive information.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:25.setlogin.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-8476
+aliases:
+  - CVE-2014-8476
+modified: "2014-11-06T12:00:00Z"
+published: "2014-11-06T12:00:00Z"

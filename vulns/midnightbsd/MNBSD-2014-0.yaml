@@ -1,0 +1,20 @@
+id: MNBSD-2014-0
+summary: named crash handling NSEC3-signed zones
+details: |
+  A defect in BIND 9.8's handling of queries for NSEC3-signed zones allowed a remote attacker to crash named via an INSIST assertion failure in query_findclosestnsec3() by sending a crafted DNS query to an authoritative name server serving NSEC3-signed zones, resulting in a denial of service. Authoritative servers not serving NSEC3-signed zones are not affected.
+affected:
+  - package:
+      name: bind
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p6"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-0591
+aliases:
+  - CVE-2014-0591
+modified: "2014-01-14T12:00:00Z"
+published: "2014-01-14T12:00:00Z"

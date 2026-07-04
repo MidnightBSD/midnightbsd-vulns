@@ -1,0 +1,18 @@
+id: MNBSD-2011-4
+summary: nsdispatch unaware of chroot can reload files outside the jail
+details: |
+  The nsdispatch(3) name-service dispatcher is not aware that it is operating inside a chroot, and certain operations can cause files to be (re)loaded from outside the chrooted environment. This creates a security hole in chroot-using services such as ftpd, contributing to the chroot escape/privilege escalation. No CVE was assigned by FreeBSD for this advisory.
+affected:
+  - package:
+      name: nsdispatch
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.3p5"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-11:07.chroot.asc
+modified: "2011-12-23T12:00:00Z"
+published: "2011-12-23T12:00:00Z"

@@ -1,0 +1,49 @@
+id: MNBSD-2016-15
+summary: Multiple OpenSSL vulnerabilities (memory growth, overflows, OOB reads/writes, DoS)
+details: |
+  OpenSSL security update addressing ten issues: unbounded memory growth from repeated large OCSP Status Request extensions, an MDC2_Update heap overflow, an SHA512 session-ticket OOB read DoS, an OOB write in BN_bn2dec, OOB reads in TS_OBJ_print_bio, undefined pointer arithmetic, a DSA non-constant-time side channel, DTLS out-of-order message buffering exhaustion, a DTLS replay-window DoS, and small OOB reads from missing message length checks. Fixed by importing the OpenSSL patch set in the 0.8.1 release.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.8.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:26.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-6304
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-6303
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-6302
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2182
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2180
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2177
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2178
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2179
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2181
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-6306
+aliases:
+  - CVE-2016-6304
+  - CVE-2016-6303
+  - CVE-2016-6302
+  - CVE-2016-2182
+  - CVE-2016-2180
+  - CVE-2016-2177
+  - CVE-2016-2178
+  - CVE-2016-2179
+  - CVE-2016-2181
+  - CVE-2016-6306
+modified: "2016-09-23T12:00:00Z"
+published: "2016-09-23T12:00:00Z"

@@ -1,0 +1,31 @@
+id: MNBSD-2014-13
+summary: OpenSSL POODLE and related vulnerabilities
+details: |
+  OpenSSL was updated to add workarounds for the POODLE vulnerability (padding oracle on downgraded legacy encryption) reported by Google, along with additional OpenSSL fixes shipped in the same advisory. Impacts include information disclosure of plaintext via SSLv3 and denial of service.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:23.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3513
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3566
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3567
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3568
+aliases:
+  - CVE-2014-3513
+  - CVE-2014-3566
+  - CVE-2014-3567
+  - CVE-2014-3568
+modified: "2014-10-21T12:00:00Z"
+published: "2014-10-21T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2016-18
+summary: telnetd argument injection into login(1)
+details: |
+  The telnet daemon passed unsanitized user-supplied data as arguments to login(1), allowing a possible argument injection. A remote attacker could potentially influence the login invocation. Corrected in the 0.8.5 release along with a libc fix.
+affected:
+  - package:
+      name: telnetd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.8.5"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:36.telnetd.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-1888
+aliases:
+  - CVE-2016-1888
+modified: "2016-12-13T12:00:00Z"
+published: "2016-12-13T12:00:00Z"

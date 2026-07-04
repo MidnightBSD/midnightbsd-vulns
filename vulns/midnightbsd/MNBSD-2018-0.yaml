@@ -1,0 +1,22 @@
+id: MNBSD-2018-0
+summary: Unauthenticated EAPOL-Key decryption in wpa_supplicant
+details: |
+  When using WPA2, EAPOL-Key frames with the Encrypted flag set but without the MIC flag set had their data field decrypted before the MIC was verified. When the data field was encrypted with RC4 (for example when negotiating TKIP as a pairwise cipher), the unauthenticated but decrypted data was subsequently processed. This exposed wpa_supplicant(8) to a decryption oracle allowing an attacker within range to recover sensitive information from EAPOL-Key messages.
+affected:
+  - package:
+      name: wpa_supplicant
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.0.0"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-18:11.hostapd.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2018-14526
+aliases:
+  - CVE-2018-14526
+modified: "2018-08-15T12:00:00Z"
+published: "2018-08-15T12:00:00Z"

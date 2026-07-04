@@ -1,0 +1,18 @@
+id: MNBSD-2014-11
+summary: Security issue in mksh (MirBSD Korn shell)
+details: |
+  A security issue in mksh was fixed, as described in the upstream MirBSD notification dated October 3, 2014. mksh is not part of the FreeBSD base system, so no FreeBSD advisory or CVE applies to this MidnightBSD base component.
+affected:
+  - package:
+      name: mksh
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.1"
+references:
+  - type: WEB
+    url: https://www.midnightbsd.org/security/
+modified: "2014-10-04T12:00:00Z"
+published: "2014-10-04T12:00:00Z"

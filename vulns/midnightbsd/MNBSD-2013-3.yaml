@@ -1,0 +1,22 @@
+id: MNBSD-2013-3
+summary: Kernel memory disclosure via uninitialized SCTP state cookie
+details: |
+  When initializing the SCTP state cookie sent in INIT-ACK chunks, a buffer allocated from the kernel stack is not completely zeroed, so padding bytes remain uninitialized. This uninitialized kernel memory is placed on the wire and can disclose sensitive data to a remote peer. Systems not using SCTP are unaffected. Patch obtained from FreeBSD.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-13:10.sctp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2013-5209
+aliases:
+  - CVE-2013-5209
+modified: "2013-08-22T12:00:00Z"
+published: "2013-08-22T12:00:00Z"

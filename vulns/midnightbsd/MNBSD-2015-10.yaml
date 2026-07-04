@@ -1,0 +1,22 @@
+id: MNBSD-2015-10
+summary: amd64 GS segment register manipulation via IRET fault
+details: |
+  On amd64 the GS segment CPU register could be changed to a userland-controlled value while in kernel mode by triggering an IRET with a #SS or #NP exception. This could allow a local attacker to escalate privileges or crash the kernel.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.6.7"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-15:21.amd64.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-5675
+aliases:
+  - CVE-2015-5675
+modified: "2015-08-25T12:00:00Z"
+published: "2015-08-25T12:00:00Z"

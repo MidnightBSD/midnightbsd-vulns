@@ -1,0 +1,28 @@
+id: MNBSD-2014-19
+summary: Denial of service in file(1) and libmagic
+details: |
+  Multiple vulnerabilities in file(1) and libmagic(3) could allow an attacker to cause a denial of service in any program that uses libmagic, for example via a crafted ELF or other input processed by the magic parser. This affects services that identify untrusted file content.
+affected:
+  - package:
+      name: file
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.7"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:28.file.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3710
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-8116
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-8117
+aliases:
+  - CVE-2014-3710
+  - CVE-2014-8116
+  - CVE-2014-8117
+modified: "2014-12-11T12:00:00Z"
+published: "2014-12-11T12:00:00Z"

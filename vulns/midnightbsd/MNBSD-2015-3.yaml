@@ -1,0 +1,37 @@
+id: MNBSD-2015-3
+summary: OpenSSL multiple vulnerabilities (use-after-free, NULL deref, memory corruption)
+details: |
+  Multiple OpenSSL vulnerabilities were fixed, including a use-after-free in d2i_ECPrivateKey, an invalid read crash in ASN1_TYPE_cmp, memory corruption via reused ASN.1 structures, a NULL pointer dereference in X509_to_X509_REQ, mishandled PKCS#7 parsing, and an assertion failure reachable via a crafted SSLv2 CLIENT-MASTER-KEY message. These allow denial of service and potentially memory corruption.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.10"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-15:06.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0209
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0286
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0287
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0288
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0289
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0293
+aliases:
+  - CVE-2015-0209
+  - CVE-2015-0286
+  - CVE-2015-0287
+  - CVE-2015-0288
+  - CVE-2015-0289
+  - CVE-2015-0293
+modified: "2015-03-19T12:00:00Z"
+published: "2015-03-19T12:00:00Z"

@@ -1,0 +1,20 @@
+id: MNBSD-2016-4
+summary: SSLv2 ciphers negotiable despite being disabled
+details: |
+  A malicious client could negotiate SSLv2 ciphers that had been disabled on the server and complete SSLv2 handshakes even when all SSLv2 ciphers were disabled, provided the SSLv2 protocol itself was not disabled via SSL_OP_NO_SSLv2. This weakened intended cipher restrictions. Fixed in the 0.7.4 release.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.4"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-3197
+aliases:
+  - CVE-2015-3197
+modified: "2016-01-30T12:00:00Z"
+published: "2016-01-30T12:00:00Z"

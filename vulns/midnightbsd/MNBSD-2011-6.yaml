@@ -1,0 +1,18 @@
+id: MNBSD-2011-6
+summary: pam_ssh authentication bypass with unencrypted SSH private keys
+details: |
+  The OpenSSL private key decryption call used by pam_ssh ignores the passphrase argument when the key is not encrypted. If pam_ssh is enabled, an attacker can authenticate against accounts that have an unencrypted SSH private key by submitting any arbitrary passphrase, gaining unauthorized access. No CVE was assigned by FreeBSD for this advisory.
+affected:
+  - package:
+      name: pam_ssh
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.3p5"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-11:09.pam_ssh.asc
+modified: "2011-12-23T12:00:00Z"
+published: "2011-12-23T12:00:00Z"

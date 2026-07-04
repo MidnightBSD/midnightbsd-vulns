@@ -1,0 +1,22 @@
+id: MNBSD-2009-7
+summary: Missing permission check on IPv6 SIOCSIFINFO_IN6 ioctl
+details: |
+  The SIOCSIFINFO_IN6 ioctl was missing a necessary permissions check, allowing any local user (including unprivileged users and users in jails) to change properties on IPv6 interfaces. The fix was applied to 0.2.1 (patch level p9) and 0.3-CURRENT; 0.3-CURRENT users with kern.osreldate 3005 or better had the patch. This corresponds to FreeBSD-SA-09:10.ipv6, announced the same day.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1p9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-09:10.ipv6.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2009-2208
+aliases:
+  - CVE-2009-2208
+modified: "2009-06-10T12:00:00Z"
+published: "2009-06-10T12:00:00Z"

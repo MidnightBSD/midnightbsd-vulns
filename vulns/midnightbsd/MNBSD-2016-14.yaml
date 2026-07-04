@@ -1,0 +1,23 @@
+id: MNBSD-2016-14
+summary: libarchive cpio directory traversal and zip integer signedness error
+details: |
+  Two libarchive issues were fixed: a directory traversal vulnerability in bsdcpio when extracting archives, and an integer signedness error in the ZIP archive write routine. These could allow files to be written outside the intended directory or trigger memory corruption when processing crafted archives. Fixed in the 0.7.9 release.
+affected:
+  - package:
+      name: libarchive
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-2304
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2013-0211
+aliases:
+  - CVE-2015-2304
+  - CVE-2013-0211
+modified: "2016-05-31T12:00:00Z"
+published: "2016-05-31T12:00:00Z"

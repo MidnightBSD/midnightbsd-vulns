@@ -1,0 +1,18 @@
+id: MNBSD-2016-12
+summary: 4.3BSD compat stat(2) kernel stack disclosure
+details: |
+  The historic 4.3BSD-compatibility stat(2) system call did not clear the output struct before copying it out to userland. An unprivileged user could read uninitialized kernel stack memory, potentially exposing sensitive data useful for privilege escalation. Fixed in the 0.7.9 release.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:21.43bsd.asc
+modified: "2016-05-31T12:00:00Z"
+published: "2016-05-31T12:00:00Z"

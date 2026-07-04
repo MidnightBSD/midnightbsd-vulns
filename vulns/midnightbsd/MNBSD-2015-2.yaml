@@ -1,0 +1,22 @@
+id: MNBSD-2015-2
+summary: IGMPv3 integer overflow denial of service
+details: |
+  An integer overflow in computing the size of the IGMPv3 data buffer could result in a buffer that is too small for the requested operation. This could be exploited to cause a denial of service.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-15:04.igmp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-1414
+aliases:
+  - CVE-2015-1414
+modified: "2015-02-25T12:00:00Z"
+published: "2015-02-25T12:00:00Z"

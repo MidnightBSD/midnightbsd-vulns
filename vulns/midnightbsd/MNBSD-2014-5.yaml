@@ -1,0 +1,22 @@
+id: MNBSD-2014-5
+summary: Kernel memory disclosure via ktrace page fault entries
+details: |
+  Ktrace page fault kernel trace entries were set to an incorrect size, resulting in a leak of information. A local user with ktrace access could read uninitialized kernel memory, potentially disclosing sensitive data.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p11"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:12.ktrace.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3873
+aliases:
+  - CVE-2014-3873
+modified: "2014-06-04T12:00:00Z"
+published: "2014-06-04T12:00:00Z"

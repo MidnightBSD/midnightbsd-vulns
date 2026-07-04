@@ -1,0 +1,22 @@
+id: MNBSD-2015-15
+summary: TCP MD5 signature handling denial of service
+details: |
+  A programming error in processing a TCP connection using both the TCP_MD5SIG and TCP_NOOPT socket options could lead to a kernel crash. An attacker or local application able to establish such a connection could panic the system, resulting in a denial of service.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:05.tcp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-1882
+aliases:
+  - CVE-2016-1882
+modified: "2015-10-01T12:00:00Z"
+published: "2015-10-01T12:00:00Z"

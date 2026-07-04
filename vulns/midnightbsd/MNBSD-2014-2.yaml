@@ -1,0 +1,22 @@
+id: MNBSD-2014-2
+summary: NFS server deadlock triggered by a trusted client
+details: |
+  An attacker on a trusted NFS client could cause the NFS server to become deadlocked via a lock-ordering issue during file-handle-to-vnode resolution. This results in a denial of service of the NFS server.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:05.nfsserver.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-1453
+aliases:
+  - CVE-2014-1453
+modified: "2014-04-09T12:00:00Z"
+published: "2014-04-09T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2019-1
+summary: pts(4) write-after-free on close of posix_openpt descriptor
+details: |
+  The code that handles close(2) of a descriptor created by posix_openpt(2) fails to undo the configuration that causes SIGIO to be raised. This bug can lead to a write-after-free of kernel memory, which malicious code may use to gain root privileges or escape a jail.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.1.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-19:13.pts.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2019-5606
+aliases:
+  - CVE-2019-5606
+modified: "2019-07-24T12:00:00Z"
+published: "2019-07-24T12:00:00Z"

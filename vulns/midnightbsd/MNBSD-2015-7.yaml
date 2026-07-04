@@ -1,0 +1,23 @@
+id: MNBSD-2015-7
+summary: OpenSSH SSHFP verification bypass and MaxAuthTries bypass
+details: |
+  Two OpenSSH security vulnerabilities were fixed. OpenSSH clients did not correctly verify DNS SSHFP records when a server offered a certificate, and OpenSSH servers configured to allow PAM password authentication (the default) allowed MaxAuthTries to be bypassed, permitting many password attempts and easing brute-force attacks.
+affected:
+  - package:
+      name: openssh
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.6.4"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-2653
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-5600
+aliases:
+  - CVE-2014-2653
+  - CVE-2015-5600
+modified: "2015-07-28T12:00:00Z"
+published: "2015-07-28T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2019-6
+summary: struct file reference counter overflow in mqueuefs
+details: |
+  System calls operating on file descriptors obtain a reference to the relevant struct file which, due to a programming error, was not always put back. This could be used to overflow the reference counter of the affected struct file. A local user could exploit this to gain access to files, directories, and sockets opened by other users, escape a jail, or, for a jailed root user, obtain root privileges on the host. This advisory addressed the flaw in the 32-bit compatibility layer.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.1.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-19:24.mqueuefs.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2019-5603
+aliases:
+  - CVE-2019-5603
+modified: "2019-08-22T12:00:00Z"
+published: "2019-08-22T12:00:00Z"

@@ -1,0 +1,22 @@
+id: MNBSD-2013-5
+summary: nullfs VOP_LINK allows cross-mount hardlinks between nullfs instances
+details: |
+  The nullfs(5) implementation of the VOP_LINK(9) VFS operation does not verify that the source and target of a link reside in the same nullfs instance. A user with read access to one nullfs view and write access to another view of the same underlying filesystem can create a hardlink across them, potentially gaining write access to files on a nominally read-only filesystem. Patch obtained from FreeBSD.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p4"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-13:13.nullfs.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2013-5710
+aliases:
+  - CVE-2013-5710
+modified: "2013-09-10T12:00:00Z"
+published: "2013-09-10T12:00:00Z"

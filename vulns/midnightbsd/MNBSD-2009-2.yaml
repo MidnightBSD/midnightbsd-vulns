@@ -1,0 +1,22 @@
+id: MNBSD-2009-2
+summary: BIND DNSSEC signature verification failure enabling spoofing
+details: |
+  BIND did not properly check the return value from the OpenSSL DSA/EVP signature verification function, allowing an attacker to spoof DNSSEC-validated records (a DNSSEC/cache-poisoning attack). The fix was applied to 0.2.1 and 0.3-CURRENT. This corresponds to FreeBSD-SA-09:04.bind.
+affected:
+  - package:
+      name: bind
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-09:04.bind.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2009-0025
+aliases:
+  - CVE-2009-0025
+modified: "2009-01-15T12:00:00Z"
+published: "2009-01-15T12:00:00Z"

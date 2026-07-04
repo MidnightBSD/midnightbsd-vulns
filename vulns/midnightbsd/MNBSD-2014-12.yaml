@@ -1,0 +1,22 @@
+id: MNBSD-2014-12
+summary: Kernel memory leak in sandboxed namei path lookup
+details: |
+  When a Capsicum-sandboxed process performed a namei lookup of a nonexistent path name, the kernel could leak memory. This could lead to resource exhaustion and disclosure of kernel memory.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:22.namei.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3711
+aliases:
+  - CVE-2014-3711
+modified: "2014-10-21T12:00:00Z"
+published: "2014-10-21T12:00:00Z"

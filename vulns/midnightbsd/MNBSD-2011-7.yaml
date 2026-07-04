@@ -1,0 +1,22 @@
+id: MNBSD-2011-7
+summary: telnetd remote buffer overflow allows arbitrary code execution as root
+details: |
+  The telnet daemon does not validate the length of a supplied encryption key before copying it into a fixed-size buffer. An attacker who can connect to telnetd can overflow the buffer and execute arbitrary code with the privileges of the daemon, which is normally root. This is a remotely exploitable root compromise.
+affected:
+  - package:
+      name: telnetd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.3p5"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-11:08.telnetd.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2011-4862
+aliases:
+  - CVE-2011-4862
+modified: "2011-12-23T12:00:00Z"
+published: "2011-12-23T12:00:00Z"

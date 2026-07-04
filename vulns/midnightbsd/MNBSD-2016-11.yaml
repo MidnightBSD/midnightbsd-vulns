@@ -1,0 +1,22 @@
+id: MNBSD-2016-11
+summary: Incorrect argument handling in sendmsg(2)/socket code allows kernel memory overwrite
+details: |
+  Incorrect argument handling in the sendmsg(2) system call and related socket code allowed a malicious local user to overwrite a large portion of kernel memory. This could result in a kernel panic or arbitrary code execution with superuser privileges. Fixed in the 0.7.8 release.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:19.sendmsg.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-1887
+aliases:
+  - CVE-2016-1887
+modified: "2016-05-19T12:00:00Z"
+published: "2016-05-19T12:00:00Z"

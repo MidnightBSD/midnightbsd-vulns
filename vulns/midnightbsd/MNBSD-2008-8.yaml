@@ -1,0 +1,22 @@
+id: MNBSD-2008-8
+summary: amd64 swapgs mishandling on General Protection Fault mixes kernel and userland state
+details: |
+  On amd64/EM64T systems, if a General Protection Fault occurred while returning from an interrupt, trap, or system call, the swapgs CPU instruction could be executed one extra time, mixing userland and kernel state and allowing local privilege escalation. The patch was released after 0.2.1-RELEASE; users were advised to update to RELENG_0_2 or CURRENT. This corresponds to FreeBSD-SA-08:07.amd64.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-08:07.amd64.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2008-3890
+aliases:
+  - CVE-2008-3890
+modified: "2008-09-04T12:00:00Z"
+published: "2008-09-04T12:00:00Z"

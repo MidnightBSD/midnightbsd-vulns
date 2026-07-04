@@ -1,0 +1,22 @@
+id: MNBSD-2019-4
+summary: Missing contiguity check in m_pulldown(9) allows remote IPv6 denial of service
+details: |
+  Due to a missing check in the code of m_pulldown(9), data returned may not be contiguous as requested by the caller. When processing IPv6 fragments a remote attacker can send specially crafted traffic that triggers a kernel error condition and panic, resulting in a remote denial of service.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.1.2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-19:22.mbuf.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2019-5611
+aliases:
+  - CVE-2019-5611
+modified: "2019-08-21T12:00:00Z"
+published: "2019-08-21T12:00:00Z"

@@ -1,0 +1,31 @@
+id: MNBSD-2016-9
+summary: Multiple OpenSSL vulnerabilities (AES-NI CBC padding, encode/encrypt overflows, ASN.1 memory exhaustion)
+details: |
+  OpenSSL security update fixing an AES-NI CBC MAC padding check that no longer verified sufficient data was present (a padding-oracle style flaw), overflows in EVP_EncodeUpdate() and EVP_EncryptUpdate(), and an ASN.1 issue where short invalid encodings read via d2i_CMS_bio()-style functions could allocate large amounts of memory. Fixed in the 0.7.7 release.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.7"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:17.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2107
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2105
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2106
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-2109
+aliases:
+  - CVE-2016-2107
+  - CVE-2016-2105
+  - CVE-2016-2106
+  - CVE-2016-2109
+modified: "2016-05-05T12:00:00Z"
+published: "2016-05-05T12:00:00Z"

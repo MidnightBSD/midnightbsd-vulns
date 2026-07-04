@@ -1,0 +1,20 @@
+id: MNBSD-2009-3
+summary: sudo update correcting several outstanding security advisories
+details: |
+  An update for sudo corrected several outstanding security advisories, most notably a flaw in the parsing of the Runas group in the sudoers file that could allow local privilege escalation (sudo before 1.6.9p18). The fix was included in 0.2.1-RELEASE-p7 and 0.3-CURRENT. The 0.1.x branch no longer received security patches.
+affected:
+  - package:
+      name: sudo
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1p7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2009-0034
+aliases:
+  - CVE-2009-0034
+modified: "2009-03-26T12:00:00Z"
+published: "2009-03-26T12:00:00Z"

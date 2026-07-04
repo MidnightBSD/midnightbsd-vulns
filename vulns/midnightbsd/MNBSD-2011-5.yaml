@@ -1,0 +1,22 @@
+id: MNBSD-2011-5
+summary: PAM does not validate service names, allowing escape from the policy path
+details: |
+  pam_start() does not validate the service name, so a caller can supply a name containing path separators and escape the intended PAM policy directory. This can be exploited by unprivileged local users through set-user-ID PAM applications (for example in KDE) to load an attacker-controlled policy and gain elevated privileges.
+affected:
+  - package:
+      name: pam
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.3p5"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-11:10.pam.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2011-4122
+aliases:
+  - CVE-2011-4122
+modified: "2011-12-23T12:00:00Z"
+published: "2011-12-23T12:00:00Z"

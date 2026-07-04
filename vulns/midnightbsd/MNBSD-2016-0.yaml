@@ -1,0 +1,22 @@
+id: MNBSD-2016-0
+summary: Linux emulation futex robust list handling accesses incorrect memory
+details: |
+  A programming error in the handling of Linux futex robust lists could result in incorrect memory locations being accessed. A local attacker could manipulate a linux_robust_list_head structure via a futex to read portions of kernel memory, potentially leading to privilege escalation. Only systems using the Linux binary compatibility layer are affected. Fixed in the 0.7.3 release.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.3"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:03.linux.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-1880
+aliases:
+  - CVE-2016-1880
+modified: "2016-01-14T12:00:00Z"
+published: "2016-01-14T12:00:00Z"

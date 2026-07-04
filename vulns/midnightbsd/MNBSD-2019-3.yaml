@@ -1,0 +1,22 @@
+id: MNBSD-2019-3
+summary: Insufficient length validation in bsnmp TLV decoding
+details: |
+  A function in the bsnmp library that extracts the length from type-length-value (TLV) encoding does not properly validate the submitted length. A remote user could cause an out-of-bounds read, decoding of unrelated data, or a crash of software such as bsnmpd, resulting in a denial of service.
+affected:
+  - package:
+      name: bsnmp
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.1.2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-19:20.bsnmp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2019-5610
+aliases:
+  - CVE-2019-5610
+modified: "2019-08-08T12:00:00Z"
+published: "2019-08-08T12:00:00Z"

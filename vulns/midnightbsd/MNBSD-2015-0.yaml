@@ -1,0 +1,43 @@
+id: MNBSD-2015-0
+summary: OpenSSL multiple vulnerabilities (DTLS crash, ciphersuite downgrade, DER handling)
+details: |
+  Several OpenSSL security issues were fixed, including a NULL pointer dereference from a crafted DTLS message, a memory leak in dtls1_buffer_record, a NULL deref when built with no-ssl3, acceptance of ECDH ciphersuites without a server key exchange, acceptance of RSA temporary keys in non-export exchanges, acceptance of DH certificates without a certificate verify message, non-DER signature encoding acceptance, and incorrect BN_sqr results on some platforms. Impacts include denial of service and cryptographic downgrade.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.5.8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-15:01.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3571
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0206
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3569
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3572
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0204
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-0205
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-8275
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3570
+aliases:
+  - CVE-2014-3571
+  - CVE-2015-0206
+  - CVE-2014-3569
+  - CVE-2014-3572
+  - CVE-2015-0204
+  - CVE-2015-0205
+  - CVE-2014-8275
+  - CVE-2014-3570
+modified: "2015-01-14T12:00:00Z"
+published: "2015-01-14T12:00:00Z"

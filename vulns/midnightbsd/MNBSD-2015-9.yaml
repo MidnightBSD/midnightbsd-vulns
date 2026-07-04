@@ -1,0 +1,22 @@
+id: MNBSD-2015-9
+summary: Integer overflow in the expat XML parser
+details: |
+  A security vulnerability in the expat XML parser (an integer overflow leading to heap corruption when processing XML with malformed input) could be exploited by applications that parse untrusted XML. This could result in a denial of service or potentially other impact in programs using libbsdxml/expat.
+affected:
+  - package:
+      name: expat
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.6.6"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-15:20.expat.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2015-1283
+aliases:
+  - CVE-2015-1283
+modified: "2015-08-18T12:00:00Z"
+published: "2015-08-18T12:00:00Z"

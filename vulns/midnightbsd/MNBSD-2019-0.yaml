@@ -1,0 +1,22 @@
+id: MNBSD-2019-0
+summary: Kernel memory disclosure via 32-bit compatibility ioctl handlers
+details: |
+  Due to insufficient initialization of memory copied to userland in several 32-bit compatibility ioctl handlers, small amounts of kernel memory may be disclosed to userland processes. A user who can invoke 32-bit FreeBSD ioctls may be able to read small portions of kernel memory, which might contain sensitive information such as file cache or terminal buffer contents.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.1.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-19:14.freebsd32.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2019-5605
+aliases:
+  - CVE-2019-5605
+modified: "2019-07-24T12:00:00Z"
+published: "2019-07-24T12:00:00Z"

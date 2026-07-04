@@ -1,0 +1,25 @@
+id: MNBSD-2014-8
+summary: Kernel memory disclosure in control message API
+details: |
+  A vulnerability in the control message API left a buffer improperly cleared before being shared with userland, and a related issue affected SCTP notification padding. A local user could read uninitialized kernel memory, potentially disclosing sensitive information.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p13"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:17.kmem.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3952
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3953
+aliases:
+  - CVE-2014-3952
+  - CVE-2014-3953
+modified: "2014-07-10T12:00:00Z"
+published: "2014-07-10T12:00:00Z"

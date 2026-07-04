@@ -1,0 +1,18 @@
+id: MNBSD-2009-0
+summary: lukemftpd command splitting allows long commands to be split into multiple commands
+details: |
+  A flaw in lukemftpd(8) allowed long commands to be split into multiple commands, which could be abused for FTP command injection. The fix was applied to MidnightBSD 0.2.1 and 0.3-CURRENT. This corresponds to FreeBSD-SA-09:01.lukemftpd, which shares the same underlying FTP command-injection issue as the ftpd advisory (CVE-2008-4247).
+affected:
+  - package:
+      name: lukemftpd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-09:01.lukemftpd.asc
+modified: "2009-01-10T12:00:00Z"
+published: "2009-01-10T12:00:00Z"

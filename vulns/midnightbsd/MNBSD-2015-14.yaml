@@ -1,0 +1,22 @@
+id: MNBSD-2015-14
+summary: SCTP ICMPv6 input validation kernel panic
+details: |
+  A lack of proper input checks in the ICMPv6 processing of the SCTP stack could lead to either a failed kernel assertion or a NULL pointer dereference. In either case a kernel panic follows, allowing a remote attacker to cause a denial of service.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.7.2"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-16:01.sctp.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-1879
+aliases:
+  - CVE-2016-1879
+modified: "2015-10-01T12:00:00Z"
+published: "2015-10-01T12:00:00Z"

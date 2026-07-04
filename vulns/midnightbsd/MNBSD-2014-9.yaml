@@ -1,0 +1,31 @@
+id: MNBSD-2014-9
+summary: OpenSSL DTLS memory consumption, memory leak, and information disclosure
+details: |
+  Several OpenSSL DTLS-related issues were fixed: a crafted DTLS handshake message could cause excessive memory consumption, a crafted DTLS packet could leak memory, a flaw in OBJ_obj2txt could leak stack information via pretty-printing functions, and DTLS clients enabling anonymous (EC)DH ciphersuites were subject to a denial of service. Impacts are denial of service and information disclosure.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p14"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:18.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3506
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3507
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3508
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-3510
+aliases:
+  - CVE-2014-3506
+  - CVE-2014-3507
+  - CVE-2014-3508
+  - CVE-2014-3510
+modified: "2014-09-09T12:00:00Z"
+published: "2014-09-09T12:00:00Z"

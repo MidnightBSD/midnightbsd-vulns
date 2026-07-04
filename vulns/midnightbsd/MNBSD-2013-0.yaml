@@ -1,0 +1,22 @@
+id: MNBSD-2013-0
+summary: named crash (denial of service) from malformed rdata in a query
+details: |
+  A specially crafted query containing malformed rdata can cause named(8) to crash with an assertion failure, resulting in a denial of service. Only systems running the BIND name server are affected; DNS client-only systems are not. Patch obtained from FreeBSD.
+affected:
+  - package:
+      name: bind
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p1"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-13:07.bind.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2013-4854
+aliases:
+  - CVE-2013-4854
+modified: "2013-07-28T12:00:00Z"
+published: "2013-07-28T12:00:00Z"

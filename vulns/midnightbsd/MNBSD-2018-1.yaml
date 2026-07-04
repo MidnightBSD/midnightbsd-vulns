@@ -1,0 +1,22 @@
+id: MNBSD-2018-1
+summary: Insufficient validation in the ELF header parser
+details: |
+  Insufficient validation was performed in the kernel ELF header parser, and malformed or otherwise invalid ELF binaries were not rejected as they should be. Execution of a malicious ELF binary by a local unprivileged user may result in a kernel crash or disclosure of kernel memory contents.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "1.0.0"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-18:12.elf.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2018-6924
+aliases:
+  - CVE-2018-6924
+modified: "2018-09-12T12:00:00Z"
+published: "2018-09-12T12:00:00Z"

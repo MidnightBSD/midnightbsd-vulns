@@ -1,0 +1,18 @@
+id: MNBSD-2009-6
+summary: Local memory disclosure via anonymous pipes
+details: |
+  Unprivileged processes could read pages of memory belonging to other processes through anonymous pipes, resulting in local information disclosure. The fix was applied to 0.2.1 (patch level p9) and 0.3-CURRENT. This corresponds to FreeBSD-SA-09:09.pipe, announced the same day.
+affected:
+  - package:
+      name: kernel
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.2.1p9"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-09:09.pipe.asc
+modified: "2009-06-10T12:00:00Z"
+published: "2009-06-10T12:00:00Z"

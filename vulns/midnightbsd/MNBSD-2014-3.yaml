@@ -1,0 +1,22 @@
+id: MNBSD-2014-3
+summary: OpenSSL ECDSA nonce timing information disclosure
+details: |
+  A flaw in OpenSSL ECDSA processing (the FLUSH+RELOAD nonce leak) could allow recovery of ECDSA private keys via a timing side channel. MidnightBSD's OpenSSL 0.9.8 branch required the CVE-2014-0076 fix but was not affected by the concurrent Heartbleed issue (CVE-2014-0160), which only affected OpenSSL 1.0.1.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.4p8"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-14:06.openssl.asc
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2014-0076
+aliases:
+  - CVE-2014-0076
+modified: "2014-04-09T12:00:00Z"
+published: "2014-04-09T12:00:00Z"

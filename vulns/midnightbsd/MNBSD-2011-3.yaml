@@ -1,0 +1,18 @@
+id: MNBSD-2011-3
+summary: Privilege escalation in chrooted ftpd
+details: |
+  When ftpd is configured to place a user in a chroot(2) environment, an attacker who can log in as that user may be able to run arbitrary code with root privileges. The issue stems from the interaction between chroot and services that later reload configuration/library files. No CVE was assigned by FreeBSD for this advisory.
+affected:
+  - package:
+      name: ftpd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.3p5"
+references:
+  - type: WEB
+    url: https://www.freebsd.org/security/advisories/FreeBSD-SA-11:07.chroot.asc
+modified: "2011-12-23T12:00:00Z"
+published: "2011-12-23T12:00:00Z"

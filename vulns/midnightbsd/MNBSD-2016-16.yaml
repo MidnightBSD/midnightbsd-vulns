@@ -1,0 +1,20 @@
+id: MNBSD-2016-16
+summary: Excessive CPU consumption from undefined SSL/TLS alert messages
+details: |
+  Due to improper handling of alert packets (the 'SSL Death Alert' issue), OpenSSL would consume an excessive amount of CPU processing undefined/warning alert messages. A remote attacker could send crafted plaintext ALERT packets to drive a TLS/SSL server to full CPU usage, causing denial of service. Patched in the 0.8.4 release.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "0.8.4"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2016-8610
+aliases:
+  - CVE-2016-8610
+modified: "2016-11-05T12:00:00Z"
+published: "2016-11-05T12:00:00Z"
