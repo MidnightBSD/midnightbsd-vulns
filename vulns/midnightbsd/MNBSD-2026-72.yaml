@@ -1,0 +1,38 @@
+id: MNBSD-2026-72
+summary: Multiple jail filesystem root escapes via FD_RESOLVE_BENEATH bypasses (CVE-2026-101304, CVE-2026-101305, CVE-2026-101306)
+details: |
+  Jails confine processes to a restricted view of the filesystem. When a directory file descriptor is passed between jails using SCM_RIGHTS over a Unix domain socket, the receiving process's copy has the FD_RESOLVE_BENEATH flag set, which restricts path lookups through that descriptor to paths within the referenced directory.
+
+  Three flaws allowed a jailed process to bypass FD_RESOLVE_BENEATH:
+
+  1. fdescfs nodup laundering (CVE-2026-101304) - when fdescfs(4) was mounted in a jail with the nodup option, opening /dev/fd/N returned a descriptor that did not inherit FD_RESOLVE_BENEATH or the Capsicum capability rights of descriptor N. fdesc_lookup() in sys/fs/fdescfs/fdesc_vnops.c did not propagate either into the enclosing lookup.
+
+  2. renameat(2) ignored the flag (CVE-2026-101305) - kern_renameat() in sys/kern/vfs_syscalls.c did not enforce FD_RESOLVE_BENEATH on its directory arguments. A jailed process could rename a directory relative to a restricted descriptor, then escape the jail root via fchdir(2). This requires the directory to reside on a filesystem that is also reachable from the jail's root.
+
+  3. SCM_RIGHTS dropped the flag (CVE-2026-101306) - unp_internalize() and unp_externalize() in sys/kern/uipc_usrreq.c did not preserve FD_RESOLVE_BENEATH when a descriptor was transferred, so a process could clear the restriction by sending the descriptor to itself over a Unix domain socket.
+
+  A process in a jail that has received a directory file descriptor from another jail can use these techniques to escape the jail's filesystem root restriction. Systems that do not pass directory file descriptors into jails are not affected.
+
+  stable/4.0 implements FD_RESOLVE_BENEATH in the kernel but does not expose it in <fcntl.h>, so that branch's fcntl(2) manual page is unchanged and the new tests use the flag's numeric value there.
+affected:
+  - package:
+      name: kernel/jail
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101304
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101305
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101306
+aliases:
+  - CVE-2026-101304
+  - CVE-2026-101305
+  - CVE-2026-101306
+modified: "2026-10-01T19:01:48Z"
+published: "2026-10-01T19:01:48Z"

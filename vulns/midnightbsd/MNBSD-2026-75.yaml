@@ -1,0 +1,34 @@
+id: MNBSD-2026-75
+summary: Out-of-bounds read in OpenSSL DTLS retransmission (CVE-2026-84782)
+details: |
+  Datagram Transport Layer Security (DTLS) is a variant of TLS for datagram transports such as UDP. Because datagrams may be lost, DTLS retransmits handshake messages when a timer expires without a response from the peer. MidnightBSD ships OpenSSL 3.0.22 on current (master) and stable/4.1, and OpenSSL 1.1.1w with local backports on stable/4.0.
+
+  A DTLS handshake message write can be suspended part-way through when the underlying transport temporarily cannot accept more data. If the retransmission timer fired while such a write was suspended, dtls1_retransmit_message() in ssl/statem/statem_dtls.c reused the buffer and offset of the suspended write without resetting init_off. The resent message was read from that stale offset and could run past the end of the allocated buffer. The retransmission also overwrote state the suspended write needed in order to resume.
+
+  The retransmitted message may include heap memory contents, disclosing them to the DTLS peer as plaintext handshake data. If the read reaches unmapped memory, the application crashes, resulting in a denial of service. Applications that do not use DTLS are not affected.
+
+  OpenSSL 3.0 reached the end of public upstream support in September 2026 and the fixed 3.0.23 release is available only to premium support customers, as is 1.1.1zj for the 1.1.1 series. All three branches therefore receive the upstream fix as a local patch rather than a vendor update. The upstream regression test targets the OpenSSL 3.5 test suite and is not included.
+
+  The same upstream advisory lists a Moderate issue, CVE-2026-84783, that affects only OpenSSL 4.0, several Low issues that affect only the QUIC code in 3.4 and later, and two Low issues that do affect 3.0 and 1.1.1: CVE-2026-35189 (excessive memory allocation processing relative CRL distribution points) and CVE-2026-54872 (a timing side channel in scalar multiplication for non-NIST curves). Following FreeBSD, those two are not addressed here, as the fixes are extensive for low-risk issues in an end-of-life series.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-84782
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-84783
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-35189
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-54872
+aliases:
+  - CVE-2026-84782
+modified: "2026-10-02T13:23:05Z"
+published: "2026-10-02T13:23:05Z"

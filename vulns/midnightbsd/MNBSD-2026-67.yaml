@@ -1,0 +1,26 @@
+id: MNBSD-2026-67
+summary: Use-after-free via tty ioctls (CVE-2026-58093)
+details: |
+  The tty subsystem manages terminal devices and their associated state. The TIOCSCTTY ioctl(2) operation allows a session leader to make a terminal its controlling terminal.
+
+  In tty_generic_ioctl() (sys/kern/tty.c), the TIOCSCTTY handler drops the tty lock so that it can acquire proctree_lock in the correct order, then simply calls tty_lock() again. Nothing was revalidated after relocking, so a terminal that was being destroyed during that window could still be linked into the calling process' session, leaving a freed tty reachable through it.
+
+  The TIOCSPGRP handler relocked the same way. It rechecked tty_is_ctty(), but that does not detect a device that has gone away.
+
+  An unprivileged local user can race this to trigger a use-after-free in the kernel, which may be leveraged for privilege escalation.
+affected:
+  - package:
+      name: kernel/tty
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58093
+aliases:
+  - CVE-2026-58093
+modified: "2026-08-26T04:37:14Z"
+published: "2026-08-26T04:37:14Z"

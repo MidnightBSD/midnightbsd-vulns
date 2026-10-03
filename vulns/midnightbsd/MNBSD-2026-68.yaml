@@ -1,0 +1,26 @@
+id: MNBSD-2026-68
+summary: TOCTOU race in POSIX shared memory large page configuration (CVE-2026-58094)
+details: |
+  The POSIX shared memory object module supports "largepage" objects, which are backed by physically contiguous memory and created with shm_create_largepage(3). The FIOSSHMLPGCNF ioctl(2) operation configures the page size for such an object, and is intended to be used immediately after creation, before any memory is allocated for it.
+
+  The FIOSSHMLPGCNF handler in sys/kern/uipc_shm.c tested whether the object already had a page size configured, and validated the requested psind and allocation policy, before acquiring the object's rangelock; only the assignment ran under the lock.
+
+  Two concurrent callers could therefore both observe an unconfigured object and set conflicting page sizes. The object could end up recorded as psind == 2 while only pagesizes[1] worth of pages had been populated for it.
+
+  An unprivileged local user can exploit this race to leave a largepage shared memory object in an inconsistent state, which may be leveraged for privilege escalation.
+affected:
+  - package:
+      name: kernel/posixshm
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58094
+aliases:
+  - CVE-2026-58094
+modified: "2026-08-26T04:36:49Z"
+published: "2026-08-26T04:36:49Z"

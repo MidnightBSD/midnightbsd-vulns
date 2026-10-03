@@ -1,0 +1,24 @@
+id: MNBSD-2026-74
+summary: IPv6 UDP sendto(2) bypasses jail loopback restriction (CVE-2026-101303)
+details: |
+  Jails provide lightweight operating system virtualization. Classic (non-VNET) jails share the host kernel's network stack but restrict the IP addresses that jailed processes may use. When a jailed process sends traffic to the loopback address, the kernel rewrites the destination to the jail's primary IP address.
+
+  The IPv6 UDP send path for unconnected sockets, udp6_output() (FreeBSD's udp6_send()) in sys/netinet6/udp6_usrreq.c, did not call prison_remote_ip6() on the destination address and so never applied the jail policy of rewriting a loopback destination to the jail's primary IPv6 address. The connected path (udp6_connect()) and the IPv4 equivalent (udp_send()) already did.
+
+  A process in a classic (non-VNET) jail can send UDP datagrams over IPv6 to services listening on the host's loopback address, bypassing jail network isolation. Systems using only VNET jails, or classic jails without an IPv6 address, are not affected.
+affected:
+  - package:
+      name: kernel/udp6
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101303
+aliases:
+  - CVE-2026-101303
+modified: "2026-10-02T04:53:23Z"
+published: "2026-10-02T04:53:23Z"

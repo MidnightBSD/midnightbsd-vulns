@@ -1,0 +1,28 @@
+id: MNBSD-2026-70
+summary: Heap out-of-bounds access in semop(2) (CVE-2026-58098)
+details: |
+  System V semaphores are a kernel-provided IPC mechanism that lets processes synchronize using sets of integer counters. The semop(2) system call performs atomic operations on a semaphore set and may block the caller until the requested conditions are met.
+
+  When semop(2) blocks waiting for a semaphore condition, it releases the per-set lock and sleeps. Upon waking, kern_semop() in sys/kern/sysv_sem.c checked the sequence number embedded in the set's IPC identifier to detect whether the set had been removed while the caller was asleep. That sequence number is only 15 bits wide. If enough semaphore sets are created and destroyed in the same table slot while a caller is blocked, the counter wraps around and semop(2) falsely concludes that the original set still exists. The subsequent access to semakptr->u.__sem_base[sopptr->sem_num] may then be out of bounds.
+
+  The same narrow sequence number was used by the semctl(2) GETALL/SETALL paths (previously mitigated for FreeBSD-SA-26:54.sysvsem / CVE-2026-58087 by rechecking the semaphore count) and by the SEM_UNDO processing at process exit.
+
+  An unprivileged local user can trigger an out-of-bounds access on kernel heap memory, potentially leading to privilege escalation.
+affected:
+  - package:
+      name: kernel/sysvsem
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58098
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58087
+aliases:
+  - CVE-2026-58098
+modified: "2026-10-01T13:26:14Z"
+published: "2026-10-01T13:26:14Z"

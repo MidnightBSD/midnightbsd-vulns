@@ -1,0 +1,28 @@
+id: MNBSD-2026-64
+summary: hwpmc(4) fails to detach performance counters across setuid exec (CVE-2026-58089)
+details: |
+  The hwpmc(4) driver implements hardware performance monitoring counters (PMCs). Unprivileged processes may attach PMCs to themselves or, subject to credential checks, to other processes. When a monitored process calls execve(2) on a setuid or setgid image, hwpmc(4) is supposed to detach PMCs whose owner no longer has sufficient privilege.
+
+  pmc_can_attach() in sys/dev/hwpmc/hwpmc_mod.c returned the negation of its decision. Callers treat a zero return as "may attach", but the function ended with return !decline_attach;, so a declined attach reported success and an allowed attach reported failure.
+
+  Its only caller is the PMC_FN_PROCESS_EXEC handler, which detaches PMCs from a process whose credentials changed across execve(2). With the inverted result, PMCs were detached exactly when the owner was still entitled to keep them, and were left attached when it was not.
+
+  An unprivileged local user who has attached PMCs to a process can continue monitoring it after the process executes a setuid or setgid binary, contrary to the intended policy. This exposes fine-grained execution behaviour of privileged code to an unprivileged observer.
+
+  Systems that do not use hwpmc(4) are not affected.
+affected:
+  - package:
+      name: kernel/hwpmc
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58089
+aliases:
+  - CVE-2026-58089
+modified: "2026-08-26T04:35:40Z"
+published: "2026-08-26T04:35:40Z"

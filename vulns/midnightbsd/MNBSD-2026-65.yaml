@@ -1,0 +1,28 @@
+id: MNBSD-2026-65
+summary: Use-after-free via the sound(4) SNDCTL_DSP_SYNCSTART ioctl (CVE-2026-58091)
+details: |
+  The sound(4) driver presents each audio device as a set of character device nodes such as /dev/dsp. The SNDCTL_DSP_SYNCSTART ioctl(2) starts playback or capture on all channels of a sync group in unison.
+
+  dsp_oss_syncstart() in sys/dev/sound/pcm/dsp.c looks up a sync group by id and then tries to lock every member channel with CHN_TRYLOCK(). When a trylock failed it dropped the locks it had already taken and msleep()ed on the sync group list lock, then resumed walking the group's member list.
+
+  Dropping that lock allows another thread to trigger or tear down the same sync group, freeing both the member entries and the group itself, so the resumed iteration walked freed memory.
+
+  An unprivileged local user with access to two or more sound devices can race this to trigger a use-after-free in the kernel, which may be leveraged for privilege escalation.
+
+  Systems with zero or one sound devices are not affected.
+affected:
+  - package:
+      name: kernel/sound
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58091
+aliases:
+  - CVE-2026-58091
+modified: "2026-08-26T04:36:04Z"
+published: "2026-08-26T04:36:04Z"

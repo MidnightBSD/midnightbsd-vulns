@@ -1,0 +1,64 @@
+id: MNBSD-2026-69
+summary: Multiple vulnerabilities in OpenSSL (CVE-2026-63072, CVE-2026-63074, CVE-2026-63076, CVE-2026-54874, CVE-2026-75803)
+details: |
+  The OpenSSL Project published a security advisory on 25 August 2026. Different issues affect different OpenSSL versions, and MidnightBSD ships two of them: current (master) and stable/4.1 carried OpenSSL 3.0.21, while stable/4.0 carries OpenSSL 1.1.1w.
+
+  Affecting the 3.0 series (current and stable/4.1):
+
+  1. Heap buffer overflow in AES-WRAP-PAD unwrap (CWE-787, CVE-2026-63072) - cms_kek_cipher() sized its output buffer from the length reported by the cipher, but on its integrity-failure paths the primitive writes and cleanses up to the input length, giving an 8 byte out-of-bounds heap write reachable through CMS key unwrapping. Rated moderate by OpenSSL.
+  2. NULL dereference via a crafted CMP protectionAlg (CWE-476, CVE-2026-63076) - an invalid pointer dereference in password-based protection verification, affecting CMP servers and clients. Rated moderate by OpenSSL.
+  3. Unbounded certificate cache growth in the CMP server (CWE-770, CVE-2026-63074) - the cache of extraCerts may grow without bound when context objects are reused.
+  4. Excessive memory use buffering DTLS next-epoch records (CWE-770, CVE-2026-54874) - a peer can use a small amount of network traffic to make a DTLS endpoint retain a disproportionately large amount of memory, roughly 1200x amplification.
+  5. AEAD tag verification skipped for empty ciphertexts (CWE-347, CVE-2026-75803) - ChaCha20-Poly1305 and AES-OCB decryption may skip authentication tag verification for empty ciphertexts when using EVP_Cipher().
+
+  Affecting the 1.1.1 series (stable/4.0): CVE-2026-63072 and CVE-2026-54874 only.
+
+  Security impact ranges from denial of service to, in the case of the heap overflow, potential memory corruption. The AEAD issue allows forged messages to be accepted as authentic in a narrow case.
+
+  The remaining CVEs in the corresponding FreeBSD advisory do not affect MidnightBSD at all: CVE-2026-14457 (raw public keys), CVE-2026-18798 (QUIC server double free), CVE-2026-63073 (CMP format string injection) and CVE-2026-63075 (QUIC ACK-only memory growth) are all OpenSSL 3.4 and later.
+
+  CVE-2026-75803 affects the 3.0 series but is not listed in the FreeBSD advisory; it is fixed here by the 3.0.22 update.
+
+  OpenSSL 1.1.1 is end of life upstream and these fixes are published only in a premium support release (1.1.1zi), so stable/4.0 receives local backports rather than a version update. CVE-2026-63072 is fully fixed there. For CVE-2026-54874, stable/4.0 takes the upstream limit change - the next-epoch record queue is capped at 16 entries instead of 100 - without the accompanying record buffer rework. This bounds the worst-case memory amplification rather than eliminating it; the 3.0 branches get the complete fix.
+
+  The CMP issues do not apply to 1.1.1, which has no CMP implementation, and CVE-2026-75803 is 3.0 and later.
+affected:
+  - package:
+      name: openssl
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.7"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-63072
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-63074
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-63076
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-54874
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-75803
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-14457
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-18798
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-63073
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-63075
+aliases:
+  - CVE-2026-63072
+  - CVE-2026-63074
+  - CVE-2026-63076
+  - CVE-2026-54874
+  - CVE-2026-75803
+  - CVE-2026-14457
+  - CVE-2026-18798
+  - CVE-2026-63073
+  - CVE-2026-63075
+modified: "2026-08-26T04:58:19Z"
+published: "2026-08-26T04:58:19Z"

@@ -1,0 +1,28 @@
+id: MNBSD-2026-71
+summary: Heap out-of-bounds access in semctl(2) GETALL/SETALL (CVE-2026-58087)
+details: |
+  System V semaphores are a kernel-provided IPC mechanism that lets processes synchronize using sets of integer counters. The semctl(2) system call's GETALL and SETALL commands read or write the values of every semaphore in a set at once.
+
+  The GETALL and SETALL handlers in sys/kern/sysv_sem.c recorded the number of semaphores in the target set, dropped the lock protecting the set, allocated a buffer sized for that count, and then reacquired the lock. Only the sequence number check in semvalid() guarded against the set having been destroyed and replaced in the interim, but that sequence number is 15 bits wide and wraps after 0x8000 create/destroy cycles. By rapidly destroying and recreating semaphore sets at the same index, another process could cause the sequence number to wrap so that a set with a different number of semaphores passed validation. The subsequent copy then read or wrote past the end of the allocated buffer.
+
+  A KASSERT() on the count existed but is compiled out on non-INVARIANTS kernels, including GENERIC.
+
+  An unprivileged local user can trigger out-of-bounds reads and writes on kernel heap memory, potentially leading to privilege escalation.
+affected:
+  - package:
+      name: kernel/sysvsem
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58087
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58098
+aliases:
+  - CVE-2026-58087
+modified: "2026-10-01T15:05:10Z"
+published: "2026-10-01T15:05:10Z"

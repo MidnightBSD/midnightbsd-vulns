@@ -1,0 +1,34 @@
+id: MNBSD-2026-66
+summary: Multiple buffer overflows in ppp(8) multilink endpoint discriminator handling (CVE-2026-58095, CVE-2026-58096, CVE-2026-58097)
+details: |
+  ppp(8) is a user-space Point-to-Point Protocol implementation. It supports the Multilink PPP extension, which uses endpoint discriminators to identify individual links within a bundle. The ppp(8) executable is installed setuid root; unprivileged users must belong to the "network" group to run it.
+
+  1. Undersized hex output buffer in mp_Enddisc() (CWE-787, CVE-2026-58095) - for the magic and unrecognised discriminator classes, mp_Enddisc() in usr.sbin/ppp/mp.c emits two hex digits per byte but clamped the length as though each byte took one character, so a discriminator longer than about half the 100 byte static buffer overflowed it.
+  2. Missing minimum length check on TY_ENDDISC (CWE-787, CVE-2026-58096) - LcpDecodeConfig() in usr.sbin/ppp/lcp.c computed opt->hdr.len - 3 without enforcing the three byte minimum from RFC 1717. A two byte option made that -1, which reached both memcpy() and an address[-1] store.
+  3. Unbounded copy in mp_SetEnddisc() (CWE-121, CVE-2026-58097) - the set enddisc psn command copied its argument into the fixed size endpoint address buffer with strcpy().
+
+  A malicious PPP peer can exploit the first two issues to crash ppp(8) or potentially execute arbitrary code as root. A local user with access to the ppp(8) command interface can exploit the third similarly.
+
+  Systems that do not use ppp(8) are not affected.
+affected:
+  - package:
+      name: ppp
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.8"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58095
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58096
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-58097
+aliases:
+  - CVE-2026-58095
+  - CVE-2026-58096
+  - CVE-2026-58097
+modified: "2026-08-26T04:36:26Z"
+published: "2026-08-26T04:36:26Z"
