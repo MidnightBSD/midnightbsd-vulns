@@ -36,6 +36,10 @@ affected:
           - fixed: "4.0.9"
 references:
   - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-113470
+  - type: WEB
     url: https://github.com/MidnightBSD/src/security/advisories/GHSA-pj84-22f5-q69x
+aliases:
+  - CVE-2026-113470
 modified: "2026-10-20T21:46:21Z"
 published: "2026-10-20T21:46:21Z"
