@@ -1,0 +1,41 @@
+id: MNBSD-2026-78
+summary: Removal of trust in emSign root certificates
+details: |
+  The base system ships a set of trusted root certificates in /usr/share/certs/trusted, generated from the Mozilla NSS root store. certctl(8) links them into /etc/ssl/certs, which base OpenSSL and the applications built on it use to verify TLS server certificates.
+
+  On 20 October 2026 Mozilla released NSS 3.131.1, which removes trust in three roots operated by emSign:
+
+  - emSign Root CA - C1 (Mozilla bug 2083709)
+  - emSign ECC Root CA - C3 (Mozilla bug 2083709)
+  - emSign ECC Root CA - G3 (Mozilla bug 2084101)
+
+  According to Mozilla, the G3 removal responds to a recent security incident that affected some intermediate certificates issued under that root. Firefox clients were protected through a OneCRL update delivered on 19 October 2026. Consumers of the root store that do not receive revocation information or cannot block individual intermediates, which includes the MidnightBSD base system, are protected only by removing the roots.
+
+  A system that still trusts these roots accepts TLS server certificates issued under them, including certificates issued from the affected intermediates.
+
+  Copy the three certificates into the local blacklist directory and rehash. Copy rather than link, because a later base update removes the originals:
+
+  mkdir -p /usr/local/etc/ssl/blacklisted
+  cd /usr/share/certs/trusted
+  install -m 444 emSign_Root_CA_-_C1.pem emSign_ECC_Root_CA_-_C3.pem \
+      emSign_ECC_Root_CA_-_G3.pem /usr/local/etc/ssl/blacklisted/
+  certctl rehash
+
+  Do not use certctl blacklist for this on MidnightBSD 4.x: the entries it creates are discarded by the next certctl rehash, which installworld and the ca_root_nss package both run. This workaround covers base OpenSSL only; applications that read /etc/ssl/cert.pem or use NSS still need the mport updates.
+
+  The regeneration also brings the base store up to date with other NSS root store changes since the previous update. It adds the SECOM TLS RSA and ECC Root CA 2024 and Telia RSA and EC TLS Root CA v3 roots, and stops trusting Atos TrustedRoot 2011, SecureSign Root CA12 and ePKI Root Certification Authority for TLS. ObsoleteFiles.inc gains entries for the certificates that are no longer installed. The base tree still uses blacklisted/ where FreeBSD now uses untrusted/.
+
+affected:
+  - package:
+      name: caroot
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/security/advisories/GHSA-pj84-22f5-q69x
+modified: "2026-10-20T21:46:21Z"
+published: "2026-10-20T21:46:21Z"
