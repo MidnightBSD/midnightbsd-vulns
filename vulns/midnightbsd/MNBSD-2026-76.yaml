@@ -1,0 +1,32 @@
+id: MNBSD-2026-76
+summary: Stack buffer overflows in rpcinfo(8) with server controlled data (CVE-2026-16277, CVE-2026-16461)
+details: |
+  rpcinfo(8) queries rpcbind(8) servers to list the RPC services they register. Several of its reporting modes print address and version information returned by the remote server. MidnightBSD ships rpcinfo from the TI-RPC code base shared with FreeBSD and NetBSD.
+
+  Two stack-based buffer overflows (CWE-121) exist in usr.bin/rpcinfo/rpcinfo.c:
+
+  - CVE-2026-16277: in the rpcinfo -l (list) and related modes, the address returned by the server is written into a fixed-size buffer with sprintf(), with no bounds check on server-supplied data.
+  - CVE-2026-16461: in the short dump mode (rpcinfo -s), the version numbers from an RPCBPROC_DUMP reply are concatenated into a fixed-size stack buffer with sprintf(), without checking that they fit.
+
+  A malicious or compromised rpcbind endpoint can return crafted data that overflows these buffers.
+
+  A user or administrator running rpcinfo -l, rpcinfo -s or similar queries against a hostile rpcbind server can have rpcinfo crash, resulting in denial of service of the client. The overflows are on the stack, so memory corruption beyond a crash cannot be ruled out, although stack protection in the MidnightBSD build limits exploitation. rpcinfo is not setuid and the issue only affects the client side; rpcbind itself is not affected.
+affected:
+  - package:
+      name: rpcinfo
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-16277
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-16461
+aliases:
+  - CVE-2026-16277
+  - CVE-2026-16461
+modified: "2026-10-20T21:36:49Z"
+published: "2026-10-20T21:36:49Z"

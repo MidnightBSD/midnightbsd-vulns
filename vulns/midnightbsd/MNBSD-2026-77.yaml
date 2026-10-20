@@ -1,0 +1,32 @@
+id: MNBSD-2026-77
+summary: Stack buffer overflow in tftp(1) and incomplete privilege drop in tftpd(8)
+details: |
+  Two issues in the TFTP client and server shipped in the base system.
+
+  tftp(1) stack buffer overflow. send_rrq() and send_wrq() in libexec/tftpd/tftp-io.c (shared by the client) copy the requested file name and transfer mode into a fixed-size packet buffer on the stack with strlcpy(), but never check the return value and advance the write pointer by the full string length. A file name longer than the remaining buffer space causes writes past the end of the buffer. The affected functions are only reachable from the tftp(1) client, including through a tftp:// URL passed on the command line, so this is a local crash or memory corruption in the invoking user's process rather than a remote issue against tftpd(8).
+
+  tftpd(8) incomplete privilege drop. When started as root without -u, tftpd dropped supplemental groups but never called setgid(), so the effective group id remained that of the starting process (normally wheel). Files served or written by the daemon were accessed with group wheel privileges rather than nobody.
+
+  Run tftpd(8) with -u <user> so it switches to a dedicated unprivileged user and group. There is no workaround for the tftp(1) client other than avoiding untrusted tftp:// URLs.
+affected:
+  - package:
+      name: tftp
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+  - package:
+      name: tftpd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://github.com/MidnightBSD/src/security/advisories/GHSA-m5f9-cg7p-w4rm
+modified: "2026-10-20T21:37:21Z"
+published: "2026-10-20T21:37:21Z"
