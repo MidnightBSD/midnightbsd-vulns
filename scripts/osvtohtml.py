@@ -140,8 +140,8 @@ def process_yaml_file(yaml_file_path, output_dir):
                 affected_versions += f"<li>Introduced: {introduced}, Fixed: {fixed}</li>"
             elif type == "GIT":
                 events = version_range.get("events", [])
-                introduced = next((e["value"] for e in events if e["introduced"]), "Unknown")
-                fixed = next((e["value"] for e in events if e.get("fixed")), "Not Fixed")
+                introduced = next((e["introduced"] for e in events if e.get("introduced")), "Unknown")
+                fixed = next((e["fixed"] for e in events if e.get("fixed")), "Not Fixed")
                 affected_versions += f"<li>Introduced commit: {introduced}, Fixed commit: {fixed}</li>"
         affected_versions += "</ul>"
 

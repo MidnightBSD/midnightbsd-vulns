@@ -6,15 +6,18 @@ details: |
   When removing a one-shot watch, inotify_log_one() in sys/kern/vfs_inotify.c looks the watch up again in the inotify descriptor's watch tree, keyed by watch descriptor, to cope with a concurrent close of the descriptor. It checked only that some watch with the same watch descriptor was still registered, not that it was the same watch. Watch descriptors are allocated from a 32-bit counter, so by forcing the counter to wrap around a user could cause a new watch to reuse the descriptor of one being removed concurrently. The kernel could then free a watch that was still in use, resulting in a use after free.
 
   An unprivileged local user may be able to exploit the bug to escalate privileges, potentially gaining full control of the system.
+
+  Only current (master) builds that include native inotify support, added on 2026-10-19 in commit 4ef5c2c7f9, are affected before the fix in d9f3f2b43b. No MidnightBSD release, stable/4.1 or stable/4.0 contains native inotify, so they are not affected. inotify ships first in MidnightBSD 4.2, which includes the fix.
 affected:
   - package:
       name: kernel/inotify
       ecosystem: MidnightBSD
     ranges:
-      - type: ECOSYSTEM
+      - type: GIT
+        repo: https://github.com/MidnightBSD/src
         events:
-          - introduced: "0"
-          - fixed: "4.2"
+          - introduced: "4ef5c2c7f9"
+          - fixed: "d9f3f2b43b"
 references:
   - type: WEB
     url: https://www.cve.org/CVERecord?id=CVE-2026-101316
