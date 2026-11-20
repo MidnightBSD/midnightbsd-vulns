@@ -1,0 +1,24 @@
+id: MNBSD-2026-90
+summary: Use after free with largepage shared memory mappings (CVE-2026-127744)
+details: |
+  Shared memory objects created with shm_create_largepage(3) are backed by large physical pages (for example 2 MB on amd64) and can be mapped into a process's address space with mmap(2).
+
+  vm_map_pmap_enter() in sys/vm/vm_map.c, which pre-populates page tables for a new mapping, was not aware of largepage objects and entered their 4 KB constituent pages individually. A constituent page could then remain mapped in a process after the largepage object had been freed.
+
+  A local user can keep access to physical memory that has been freed and reused by the kernel, and use this to escalate privileges.
+affected:
+  - package:
+      name: kernel/vm
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127744
+aliases:
+  - CVE-2026-127744
+modified: "2026-11-18T04:30:28Z"
+published: "2026-11-18T04:30:28Z"

@@ -1,0 +1,24 @@
+id: MNBSD-2026-94
+summary: Setgid bit kept on tmpfs files created by nonmembers (CVE-2026-127749)
+details: |
+  tmpfs(5) is a memory-backed file system. As on other file systems, new files inherit the group of their parent directory.
+
+  When a file was created on tmpfs with the setgid bit set, tmpfs_alloc_file() in sys/fs/tmpfs/tmpfs_subr.c kept the bit even when the creator was not a member of the file's group (inherited from the directory). UFS and chmod(2) on tmpfs clear the bit in that case.
+
+  A local user can create a setgid file on tmpfs for a group they do not belong to, in a directory owned by that group, and use it to gain that group's privileges.
+affected:
+  - package:
+      name: kernel/tmpfs
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127749
+aliases:
+  - CVE-2026-127749
+modified: "2026-11-18T04:30:46Z"
+published: "2026-11-18T04:30:46Z"

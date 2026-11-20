@@ -1,0 +1,38 @@
+id: MNBSD-2026-80
+summary: Multiple vulnerabilities in the ocs_fc(4) driver (CVE-2026-127752, CVE-2026-127753, CVE-2026-127754)
+details: |
+  The ocs_fc(4) driver supports Emulex Fibre Channel host bus adapters in both initiator and target modes. It is included in the GENERIC kernel and provides a management interface to userspace through /dev/ocsN device nodes.
+
+  Several vulnerabilities were found in the driver by a security review.
+
+  ioctl interface (CVE-2026-127752). /dev/ocsN was created mode 0640, group operator, and ocs_ioctl() in sys/dev/ocs_fc/ocs_ioctl.c did no privilege check. ocs_process_sli_config() did not bound the user-supplied buffer sizes of the READ_OBJECT, WRITE_OBJECT, READ_OBJECT_LIST and non-embedded mailbox commands, and computed the non-embedded size with max(), which truncates to 32 bits. ocs_process_mbx_ioctl() only acted on an ENXIO return. Any other failure, including a failed copyin() after the DMA buffer had been freed, still issued the mailbox command to the adapter, which then referenced freed memory. The ECD helper commands passed user-supplied BAR and PCI configuration space offsets to the hardware without range checks.
+
+  FCP and exchange handling (CVE-2026-127753). ocs_validate_fcp_cmd() in ocs_unsol.c treated additional_fcp_cdb_length, which is a count of 4-byte words, as a byte count. As a result, FCP command frames received from an initiator were under-validated and the CDB could be copied past the end of the frame and into the CAM ATIO. ocs_hw_io_lookup() in ocs_hw.c used exchange identifiers (XRIs) reported by the adapter as array indexes without a range check.
+
+  ELS and management (CVE-2026-127754). When ocs_d_send_prli_rsp() in ocs_device.c rejected a Process Login (PRLI) request with an unsupported FC-4 type, it sent an LS_RJT and then fell through and sent a second response on the same exchange, dropping the IO reference twice and causing a use after free. Any port that had completed a Port Login (PLOGI) could trigger this with a single PRLI, whether or not target mode was enabled. Separately, get_active_profile() in ocs_mgmt.c formatted a 32-bit profile id into a 5-byte stack buffer with sprintf(), which overflows for any id above 0xff.
+
+  A local user in the operator group can use the ioctl interface to corrupt kernel memory or reprogram the adapter, potentially gaining full control of the system. A remote port on the same Fibre Channel fabric can trigger a use after free or an out-of-bounds memory access in the kernel, resulting in a denial of service or potentially arbitrary code execution in the kernel.
+
+  Systems without an adapter supported by ocs_fc(4) are not affected.
+affected:
+  - package:
+      name: kernel/ocs_fc
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127752
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127753
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127754
+aliases:
+  - CVE-2026-127752
+  - CVE-2026-127753
+  - CVE-2026-127754
+modified: "2026-11-18T01:09:45Z"
+published: "2026-11-18T01:09:45Z"

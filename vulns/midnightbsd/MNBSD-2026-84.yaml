@@ -1,0 +1,26 @@
+id: MNBSD-2026-84
+summary: IPsec stream cipher counter reuse (CVE-2026-101318)
+details: |
+  IPsec is a suite of protocols providing data authentication, integrity and confidentiality between two networked hosts. When the Encapsulating Security Payload (ESP) protocol uses the AES-CTR or AES-GCM ciphers, the initialization vector (IV) of each outgoing packet is taken from a counter maintained for each Security Association (SA). The security of these ciphers depends on an IV never being reused with the same key.
+
+  esp_output() in sys/netipsec/xform_esp.c incremented the per-SA IV counter (sav->cntr++) while holding the SA lock in shared (read) mode. Since the SA mutex was replaced by an rmlock, any number of CPUs can hold that lock at once, so packets transmitted concurrently on different CPUs could be assigned the same counter value. As a result, multiple packets could be encrypted with the same IV and key.
+
+  An on-path attacker may be able to modify intercepted packets without detection, and potentially recover the plaintext of packets that share an IV.
+
+  Systems not using IPsec, or whose SAs do not use AES-CTR or AES-GCM, are not affected. MidnightBSD does not support ChaCha20-Poly1305 for IPsec.
+affected:
+  - package:
+      name: kernel/ipsec
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101318
+aliases:
+  - CVE-2026-101318
+modified: "2026-11-18T01:55:18Z"
+published: "2026-11-18T01:55:18Z"

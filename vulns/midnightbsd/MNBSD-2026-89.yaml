@@ -1,0 +1,34 @@
+id: MNBSD-2026-89
+summary: Multiple SNMPv3 vulnerabilities in bsnmpd (CVE-2026-127742, CVE-2026-127743)
+details: |
+  bsnmpd(1) is the SNMP daemon included in the base system. It supports SNMPv3 with the user-based security model (USM) and view-based access control (VACM).
+
+  Several flaws were found in bsnmpd's SNMPv3 handling in contrib/bsnmp:
+
+  - Discovery with bindings (CVE-2026-127742). A message with an empty engine id and user name is handled as engine discovery, which skips authentication and the VACM check. A genuine discovery request carries no variable bindings, but one that did was executed anyway, so GET and SET requests ran without authentication or access control. A configured noAuthNoPriv user could do the same to bypass its VACM views.
+  - Forged discovery flag. snmp_pdu_decode_header() copied the msgFlags octet from the network into pdu->flags unmasked. Bit 7 of that field is bsnmpd's internal discovery marker, so a noAuthNoPriv user could mark any request as discovery and skip VACM.
+  - Discovery walks. For a zero-binding discovery message the agent appends a usmStats counter and then dispatched the request by its type. A GETNEXT or GETBULK therefore walked forward from that counter with VACM skipped, returning the agent's USM and VACM configuration.
+  - vacmViewTreeFamilyMask overflow (CVE-2026-127743). The length check in the SET handler for vacmViewTreeFamilyMask did not reject values longer than the 16-byte mask, which were then copied into struct vacm_view, overflowing it.
+
+  In addition, a rejected request leaked the memory held by its decoded variable bindings.
+
+  A remote attacker who can send packets to bsnmpd can read and modify management data without credentials, including the agent's USM and VACM configuration. The heap overflow could be used to crash bsnmpd or possibly execute code as the user it runs as (root by default). bsnmpd is not enabled by default; systems that do not run it are not affected.
+affected:
+  - package:
+      name: bsnmpd
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127742
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127743
+aliases:
+  - CVE-2026-127742
+  - CVE-2026-127743
+modified: "2026-11-18T04:30:10Z"
+published: "2026-11-18T04:30:10Z"

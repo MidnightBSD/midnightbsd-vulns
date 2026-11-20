@@ -1,0 +1,24 @@
+id: MNBSD-2026-92
+summary: Missing access check for O_CREAT directory opens (CVE-2026-127746)
+details: |
+  open(2) accepts O_CREAT together with O_DIRECTORY. Since open(2) cannot create directories, the combination opens an existing directory.
+
+  vn_open_cred() in sys/kern/vfs_vnops.c handled O_CREAT with O_DIRECTORY as a plain lookup, but left O_CREAT set. vn_open_vnode() skips the access check for O_CREAT opens, assuming the file was just created by the caller, so the directory was opened without the read or search permission check.
+
+  A local user can open a directory they have no read or search permission for, and read its entries.
+affected:
+  - package:
+      name: kernel/vfs
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127746
+aliases:
+  - CVE-2026-127746
+modified: "2026-11-18T04:30:37Z"
+published: "2026-11-18T04:30:37Z"

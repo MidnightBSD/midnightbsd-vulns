@@ -1,0 +1,24 @@
+id: MNBSD-2026-81
+summary: Local privilege escalation via netlink heap buffer overflow (CVE-2026-127747)
+details: |
+  netlink(4) is a socket-based interface between the kernel and userspace, used chiefly to query and configure network interfaces and routes. The kernel accumulates replies to netlink requests in a writer buffer, which it replaces with a larger one when a reply does not fit.
+
+  When a reply message outgrew its buffer, nlmsg_refill_buffer() in sys/netlink/netlink_message_writer.c allocated a larger buffer and copied the partially written (unfinished) message into it. The new buffer was sized for the data about to be added, but not for the part of the message already written, so the caller could write past its end. For example, a 20-byte message plus an 8176-byte attribute received an 8192-byte buffer for 8200 bytes of data.
+
+  An unprivileged local user, including one confined to a jail, can overflow a kernel heap buffer, potentially escalating privileges and gaining full control of the system. No workaround is available.
+affected:
+  - package:
+      name: kernel/netlink
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127747
+aliases:
+  - CVE-2026-127747
+modified: "2026-11-18T01:20:36Z"
+published: "2026-11-18T01:20:36Z"

@@ -1,0 +1,24 @@
+id: MNBSD-2026-87
+summary: Socket buffer corruption via 32-bit control messages (CVE-2026-101321)
+details: |
+  The freebsd32 compatibility layer lets 32-bit programs run on 64-bit MidnightBSD systems. When such a program receives control messages (ancillary data) from a socket, the kernel converts them from the native layout to the 32-bit layout.
+
+  freebsd32_copy_msg_out() in sys/compat/freebsd32/freebsd32_misc.c converted each control message header by temporarily rewriting it in place. When a large control message is received with MSG_PEEK, the kernel returns it by referencing the mbuf cluster that is still queued in the socket buffer, so the non-atomic in-place rewrite modified data shared with the queue.
+
+  A local user who can run 32-bit programs can corrupt the socket's message queue and use this to escalate privileges. Systems built without COMPAT_FREEBSD32 are not affected.
+affected:
+  - package:
+      name: kernel/freebsd32
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101321
+aliases:
+  - CVE-2026-101321
+modified: "2026-11-18T04:30:02Z"
+published: "2026-11-18T04:30:02Z"

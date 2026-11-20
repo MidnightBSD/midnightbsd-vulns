@@ -1,0 +1,24 @@
+id: MNBSD-2026-93
+summary: Privilege escalation via TCP urgent data on read-only mbufs (CVE-2026-127748)
+details: |
+  TCP urgent data (out-of-band data, MSG_OOB) is a single byte that the receiver can read separately from the normal data stream. When it arrives, the kernel removes it from the received data.
+
+  tcp_pulloutofband() in sys/netinet/tcp_input.c removed the urgent byte by moving the rest of the mbuf's data over it, assuming the mbuf could be modified. That is not always the case. For example, data sent with sendfile(2) over a local connection is carried in mbufs that reference shared file pages.
+
+  A local user can use urgent data to modify read-only memory, such as the cached pages of a file they can only read, and use this to obtain root privileges.
+affected:
+  - package:
+      name: kernel/tcp
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127748
+aliases:
+  - CVE-2026-127748
+modified: "2026-11-18T04:30:42Z"
+published: "2026-11-18T04:30:42Z"

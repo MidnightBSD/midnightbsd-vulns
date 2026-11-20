@@ -1,0 +1,26 @@
+id: MNBSD-2026-82
+summary: NFSv4 server remote code execution via stateid type confusion (CVE-2026-101317)
+details: |
+  The Network File System (NFS) allows a host to export file systems so that other hosts can mount them over the network. NFS version 4 (NFSv4) servers track per-client state, such as open files, byte-range locks and delegations, each identified by a stateid. A delegation allows a client to open, lock and cache a file locally without contacting the server until the server recalls it. Clients release delegations with the DELEGRETURN operation.
+
+  nfsrv_getstate() in sys/fs/nfsserver/nfs_nfsdstate.c looks up a client's state by stateid, but ignored its flags argument. When nfsrv_delegupdate() called it to process a DELEGRETURN, it returned whatever state matched the stateid, so a client could supply an open or lock stateid instead of a delegation stateid. nfsrv_delegupdate() then freed that state while it was still referenced, resulting in a use after free.
+
+  A remote NFSv4 client that can open a file on an exported file system can corrupt kernel memory on the server, causing a kernel panic or potentially executing arbitrary code in the kernel.
+
+  Systems not acting as NFSv4 servers are not affected. NFSv4 service is disabled by default; sysctl -n vfs.nfsd.server_max_nfsvers prints 4 when it is enabled (check the host and any vnet jail running nfsd(8)).
+affected:
+  - package:
+      name: kernel/nfsserver
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101317
+aliases:
+  - CVE-2026-101317
+modified: "2026-11-18T01:34:17Z"
+published: "2026-11-18T01:34:17Z"

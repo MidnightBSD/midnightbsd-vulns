@@ -1,0 +1,24 @@
+id: MNBSD-2026-88
+summary: Use after free in sound(4) buffer resizing (CVE-2026-127741)
+details: |
+  The sound(4) subsystem exposes audio channels through /dev/dsp devices. Programs can change the size of a channel's buffer, for example with the SNDCTL_DSP_SETFRAGMENT ioctl.
+
+  chn_resizebuf() in sys/dev/sound/pcm/channel.c refused to resize a channel whose buffer was mapped or triggered, but did not account for read(2) and write(2) on the channel, which drop the channel lock while copying data to or from user memory. A resize during that window could free the buffer the copy was still using.
+
+  On a system with a sound device, any local user (dsp devices are mode 0666 by default) can make the kernel copy to or from freed memory and use this to escalate privileges.
+affected:
+  - package:
+      name: kernel/sound
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127741
+aliases:
+  - CVE-2026-127741
+modified: "2026-11-18T04:30:06Z"
+published: "2026-11-18T04:30:06Z"

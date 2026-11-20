@@ -1,0 +1,24 @@
+id: MNBSD-2026-83
+summary: Privilege escalation via inotify watch descriptor wraparound (CVE-2026-101316)
+details: |
+  The inotify(2) interface allows applications to monitor file system activity. A process adds watches on files and directories to an inotify descriptor, and each watch is identified by an integer watch descriptor. The kernel removes some watches automatically; for example, a one-shot (IN_ONESHOT) watch is removed after its first event is published.
+
+  When removing a one-shot watch, inotify_log_one() in sys/kern/vfs_inotify.c looks the watch up again in the inotify descriptor's watch tree, keyed by watch descriptor, to cope with a concurrent close of the descriptor. It checked only that some watch with the same watch descriptor was still registered, not that it was the same watch. Watch descriptors are allocated from a 32-bit counter, so by forcing the counter to wrap around a user could cause a new watch to reuse the descriptor of one being removed concurrently. The kernel could then free a watch that was still in use, resulting in a use after free.
+
+  An unprivileged local user may be able to exploit the bug to escalate privileges, potentially gaining full control of the system.
+affected:
+  - package:
+      name: kernel/inotify
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.2"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101316
+aliases:
+  - CVE-2026-101316
+modified: "2026-11-18T01:40:45Z"
+published: "2026-11-18T01:40:45Z"

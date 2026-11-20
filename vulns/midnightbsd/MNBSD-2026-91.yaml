@@ -1,0 +1,24 @@
+id: MNBSD-2026-91
+summary: File truncation without write permission via fdescfs (CVE-2026-127745)
+details: |
+  fdescfs(5) provides the /dev/fd/N files, which give access to a process's open file descriptors.
+
+  truncate(2) checks for write permission only through VOP_ACCESS(), and fdescfs did not implement it, so the check always passed. In addition, fdesc_setattr() in sys/fs/fdescfs/fdesc_vnops.c looked up descriptor N again when truncating, so a concurrent dup2(2) could replace the file between the check and the truncation.
+
+  On a system with fdescfs mounted, a local user can truncate a file they have opened read-only through /dev/fd/N, even without write permission for it. This can destroy the contents of files such as system configuration that the user can read.
+affected:
+  - package:
+      name: kernel/fdescfs
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-127745
+aliases:
+  - CVE-2026-127745
+modified: "2026-11-18T04:30:32Z"
+published: "2026-11-18T04:30:32Z"

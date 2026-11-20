@@ -1,0 +1,26 @@
+id: MNBSD-2026-86
+summary: Use after free when detaching kqueue timers (CVE-2026-101320)
+details: |
+  kqueue(2) timers (EVFILT_TIMER) are implemented with callouts. When the process that owns a timer knote is stopped, its timers are kept on a per-process list and re-armed when the process continues.
+
+  filt_timerdetach() in sys/kern/kern_event.c drained the timer's callout, removed the timer from the stopped-timers list, and repeated the drain if the callout had been re-armed in the meantime. Because softclock clears a callout's pending bit without holding the callout lock, a callout that fired during this check could be missed. It then ran after the timer data had been freed.
+
+  A local user can exploit the resulting use after free to corrupt kernel memory and gain root privileges.
+
+  The related FreeBSD issue in kqueue_fork_copy_list() (CVE-2026-127750, also part of FreeBSD-SA-26:85) does not affect MidnightBSD, which does not have that code.
+affected:
+  - package:
+      name: kernel/kqueue
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101320
+aliases:
+  - CVE-2026-101320
+modified: "2026-11-18T04:29:57Z"
+published: "2026-11-18T04:29:57Z"

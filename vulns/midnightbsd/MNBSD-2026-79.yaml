@@ -1,0 +1,24 @@
+id: MNBSD-2026-79
+summary: Kernel memory disclosure via KTLS control messages (CVE-2026-101313)
+details: |
+  Kernel TLS (KTLS) moves Transport Layer Security record processing into the kernel, allowing applications to encrypt and decrypt socket data without copying it to and from userspace and to serve TLS data with sendfile(2). Applications using KTLS on the transmit path may select the TLS record type of each outgoing record by passing a TLS_SET_RECORD_TYPE control message to sendmsg(2).
+
+  sosend_generic() in sys/kern/uipc_socket.c accepted a TLS_SET_RECORD_TYPE control message as soon as it was large enough to hold a struct cmsghdr, and then read the one-byte record type from the data following the header. A control message consisting of only the cmsghdr passed this check, so the kernel read one byte past the end of the control data and used it as the record type of the outgoing TLS record.
+
+  A local user with a socket on which transmit-side KTLS is enabled can send a crafted TLS_SET_RECORD_TYPE control message and cause one byte of uninitialized kernel memory to be used as the record type. For TLS 1.2 connections the record type is sent in the plaintext record header, so this discloses kernel memory to the peer (which the user may control). Systems with the kern.ipc.tls.enable sysctl set to 0 are unaffected.
+affected:
+  - package:
+      name: kernel/ktls
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101313
+aliases:
+  - CVE-2026-101313
+modified: "2026-11-18T00:49:50Z"
+published: "2026-11-18T00:49:50Z"

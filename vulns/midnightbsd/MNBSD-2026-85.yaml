@@ -1,0 +1,24 @@
+id: MNBSD-2026-85
+summary: Host crash via guest TSC_AUX writes in bhyve (CVE-2026-101319)
+details: |
+  vmm(4) is the kernel side of the bhyve(8) hypervisor. On Intel CPUs it emulates guest accesses to model-specific registers, including IA32_TSC_AUX, which the RDTSCP and RDPID instructions read.
+
+  vmx_wrmsr() in sys/amd64/vmm/intel/vmx_msr.c stored a guest's write to IA32_TSC_AUX in the vCPU's MSR array without checking that bits 63:32, which are reserved, were clear. vmx_msr_guest_enter_tsc_aux() later loaded the stored value into the physical MSR before entering the guest.
+
+  A guest with kernel privileges can make the host attempt to load an invalid value into IA32_TSC_AUX, which raises a general protection fault in the host kernel and crashes the host. Hosts running bhyve on AMD CPUs, and hosts that do not run bhyve, are not affected.
+affected:
+  - package:
+      name: kernel/vmm
+      ecosystem: MidnightBSD
+    ranges:
+      - type: ECOSYSTEM
+        events:
+          - introduced: "0"
+          - fixed: "4.0.9"
+references:
+  - type: WEB
+    url: https://www.cve.org/CVERecord?id=CVE-2026-101319
+aliases:
+  - CVE-2026-101319
+modified: "2026-11-18T04:29:38Z"
+published: "2026-11-18T04:29:38Z"
